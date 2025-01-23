@@ -5,7 +5,7 @@ Team Members: <br/>
 2nd Years - Kyara McWilliam, Joseph McSweeney, Brian Wang, David Sietko <br/>
 3rd Years - Sarah Foley, Saamiul Kader, Oliver Easterbrook, Eoghan Murphy
 
-Demonstrator: Da Silva Araujo, Manuel Francisco
+Demonstrator: Manuel Francisco Da Silva Araujo
 <br/>
 Ryanair Mentors: David O'Callaghan, Joaquim Oliveira<br/>
 <br/>
