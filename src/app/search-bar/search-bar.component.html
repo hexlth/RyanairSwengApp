@@ -1,0 +1,8 @@
+<div class="search-bar">
+    <div class="input-field">
+        <input [ngClass]="isInvalid ? 'invalid' : 'valid'"
+        class="search-input" (input)="onInputChange($event)" placeholder="Enter a valid flight number"/>
+        <p class="error ">{{isInvalid ? "Enter a valid flight number!" : ""}}</p>
+    </div>
+    <button class="search-button" (click)="searchFunction(inputValue)">Scan Trolley</button>
+</div>
