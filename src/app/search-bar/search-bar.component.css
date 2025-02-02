@@ -1,0 +1,53 @@
+.search-bar {
+    /* setting the searchbar layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 65px;
+}
+.input-field {
+    /* layout of whole input field */
+    display: flex;
+    flex-direction: column;
+    margin-right: 100px;
+}
+.search-input {
+    /* adjusting text sizes for text inside the searchbar */
+    font-size: 24px;
+    width: 400px;
+    height: 40px;
+}
+.search-input:hover {
+    /* adjusting border width when user hovers over searchbar */
+    border-width: 3px;
+}
+.search-input.valid {
+    /* setting color for when input is valid */
+    color: black;
+    border-color: black;
+}
+.search-input.invalid {
+    /* make searchbar red when input invalid */
+    color: red;
+    border-color: red;
+}
+.error {
+    /* set error message color to red */
+    color: red;
+    font-size: 20px;
+}
+.search-button {
+    /* style for the search button */
+    width: 400px;
+    height: 40px;
+    color: black;
+    background-color: yellow;
+    border-width: 2px;
+    border-color: black;
+    font-size: 24px;
+}
+.search-button:hover {
+    /* adjust border size for when user hovers over it */
+    font-weight: bold;
+    border-width: 5px;
+}

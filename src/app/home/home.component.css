@@ -1,0 +1,21 @@
+.home {
+    /*  setting the layout and size of the home component */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: blue;
+    width: 100%;
+    height: 75vh;
+
+    /* adjusting background */
+    background-size: cover;         /* make sure covers whole screen */
+    background-position: center;    /* position image in the centre */
+    background-repeat: no-repeat;   /* image doesnt repeat itself */
+    transition: background-image 1s ease-in-out;    /* creating the image transition */
+}
+.title {
+    /* making title color white and aligning it in the centre */
+    color: white;
+    text-align: center;
+    font-size: 25px;
+}

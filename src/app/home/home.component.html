@@ -1,0 +1,7 @@
+<div class="home" [ngStyle]="{'background-image': 'url(' + currentPath + ')'}" >
+    <div class="title">
+        <img src="images/logo.svg" width="1200" height="300" alt="LOGO"/>
+        <h1>Low Fares Made Simple</h1>
+    </div>
+</div>
+<app-search-bar [isInvalid]="invalid" [searchFunction]="searchForFlightNum.bind(this)"></app-search-bar>
