@@ -23,7 +23,7 @@
     width: 100%;  /* Make input field take full width of the sidebar */
     height: 40px;
     border-radius: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: "Times New Roman", Times, serif;
 }
 
 /* Hover effect for the input field */
@@ -60,7 +60,7 @@
     border-width: 2px;
     border-color: black;
     font-size: 24px;
-    font-family: 'Arial', sans-serif;
+    font-family: "Times New Roman", Times, serif;
     border-radius: 20px;
     margin-top: 10px;  /* Space between the button and the input field */
 }
