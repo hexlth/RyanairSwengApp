@@ -1,53 +1,72 @@
+/* Layout for search bar inside the sidebar */
 .search-bar {
-    /* setting the searchbar layout */
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 65px;
+    flex-direction: column;  /* Stack input field and button vertically */
+    justify-content: flex-start;  /* Align from the top */
+    align-items: center;  /* Center horizontally inside the sidebar */
+    height: auto;  /* Allow the height to adjust based on content */
+    margin-top: 200px;  /* Reduce this value to move it higher */
+    width: 100%;  /* Ensure it fits within the sidebar width */
 }
+
+/* Layout for the whole input field */
 .input-field {
-    /* layout of whole input field */
     display: flex;
     flex-direction: column;
-    margin-right: 100px;
+    width: 80%;  /* Ensure it takes full width of the sidebar */
+    align-items: center; /* Center input field */
 }
+
+/* Styling for the search input */
 .search-input {
-    /* adjusting text sizes for text inside the searchbar */
     font-size: 24px;
-    width: 400px;
+    width: 100%;  /* Make input field take full width of the sidebar */
     height: 40px;
+    border-radius: 20px;
+    font-family: 'Arial', sans-serif;
 }
+
+/* Hover effect for the input field */
 .search-input:hover {
-    /* adjusting border width when user hovers over searchbar */
-    border-width: 3px;
+    border-width: 2px;
 }
+
+/* Styling for valid input */
 .search-input.valid {
-    /* setting color for when input is valid */
     color: black;
     border-color: black;
 }
+
+/* Styling for invalid input */
 .search-input.invalid {
-    /* make searchbar red when input invalid */
     color: red;
     border-color: red;
 }
+
+/* Error message styling */
 .error {
-    /* set error message color to red */
     color: red;
     font-size: 20px;
+    margin-bottom: 10px;  /* Space below error message */
+    text-align: center; /* Ensure error message is centered */
 }
+
+/* Styling for the search button */
 .search-button {
-    /* style for the search button */
-    width: 400px;
+    width: 60%;  /* Make button take full width of the sidebar */
     height: 40px;
     color: black;
-    background-color: yellow;
+    background-color: #f1c933;
     border-width: 2px;
     border-color: black;
     font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    border-radius: 20px;
+    margin-top: 10px;  /* Space between the button and the input field */
 }
+
+/* Hover effect for the button */
 .search-button:hover {
-    /* adjust border size for when user hovers over it */
-    font-weight: bold;
-    border-width: 5px;
+    font-style: italic;
+    border-width: 3px;
 }
