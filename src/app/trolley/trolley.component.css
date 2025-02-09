@@ -5,7 +5,7 @@
 }
 
 .home {
-    background-color: blue;
+    background: linear-gradient(135deg, #1F1FFF, #4949FF);
     width: 350px; /* Adjust the sidebar width as needed */
     height: 100vh;
     position: fixed;
@@ -33,7 +33,7 @@
     color: white;
     text-align: center;
     font-size: 20px;
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Libre Franklin", sans-serif;
     margin-top: 20px;
 }
 
