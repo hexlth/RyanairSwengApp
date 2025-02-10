@@ -3,9 +3,17 @@
         <div class="title">
             <img src="images/logo.svg" width="1200" height="300" alt="LOGO"/>
             <h3 style="text-decoration: underline;">Low Fares Made Simple</h3>
+            <ul id="list">
+                Legend
+                <li id="green">Green = High stock</li>
+                <li id="yellow">Yellow = Med Stock</li>
+                <li id="red">Red = Low Stock</li>
+                <li id="gray">Gray = No stock</li>
+            </ul>
         </div>
     </div>
     <div class="content">
         <h1>DashBoard page</h1>
+        <app-list [stock]="stock"></app-list>
     </div>
 </div>

@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 
     // if flightNum valid, go to new route
       if(this.flightNumbers.includes(this.flightNum.toString())) {
-        this.router.navigate(["/trolley"]);
+        this.router.navigate(["/trolley"], {queryParams : {flightNum : this.flightNum}});
       }
       // else flightNum not found, use timer to make button shine red for 2 secs
     else {
