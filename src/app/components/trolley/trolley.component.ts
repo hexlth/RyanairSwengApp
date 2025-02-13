@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeComponent } from '../home/home.component';
 import { ActivatedRoute } from '@angular/router';
 import { ListComponent } from "../list/list.component";
 
