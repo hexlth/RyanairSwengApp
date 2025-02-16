@@ -113,7 +113,6 @@ export class TrolleyComponent {
     [this.values, this.labels] = this.chartDataService.initializeChartData(this.stock);
     this.maxValue = this.chartDataService.getLargestValue();
     this.maxSliderValue = this.maxValue;
-    console.log(`Largest quantity: ${this.maxValue}`);
     this.setConfig();
     this.chart = new Chart("chart", this.config);
   }
@@ -135,7 +134,6 @@ export class TrolleyComponent {
   // set the chart type
   setChartType(event: Event) {
     this.chartType = (event.target as HTMLInputElement).value;
-    console.log(this.chartType);
   }
 
   // setting the configurations for the chart
@@ -165,12 +163,7 @@ export class TrolleyComponent {
 
   // functions to update the min value and max values respectively
   updateMinValue(value: number) {
-    if(value > this.maxSliderValue) {
-      this.minSliderValue = Math.min(value, this.maxSliderValue);
-    }
-    else {
       this.minSliderValue = value;
-    }
   }
   updateMaxValue(value: number) {;
     this.maxSliderValue = value;
