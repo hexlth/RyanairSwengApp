@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     width: 100vw;
+    flex-shrink: 1;
 }
 
 .home {
@@ -11,22 +12,40 @@
     position: fixed;
     left: 0;
     top: 0;
-    flex-shrink: 1;
 }
 
 .content {
-    flex-grow: 1;
     margin-left: 350px; /* Ensure it moves to the right of the sidebar */
     background-color: white; /* Set background color to white */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 1s ease-in-out;
+
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 100vh; /* Ensure it covers full height */
+    overflow: hidden;
     width: calc(100vw - 350px); /* Make it fill remaining width after sidebar */
+    
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-wrap: nowrap;
+}
+
+.chart-container {
+    display: flex;                  /*put chart in a flex container*/
+    width: calc(100% - 20vw);       /*setting width and height (20vw is width of list on the side*/
+    height: 100%;
+}
+#item-list {
+    margin-left: auto;      /*make the list sit at the far right of the flexbox*/
+}
+
+/*pass height in to app slider, make sure it spans full length of sidebar*/
+app-slider {
+    width: 95%;         /*make slider be 95% of available width in sidebar*/
 }
 
 .title {
@@ -35,22 +54,41 @@
     flex-direction: column;
     justify-items: flex-start;
     align-items: center;
+    width: 100%;
     height: calc(100vh - 20px);                     /*height of box minus the bottom border of legend box*/
     color: white;
     text-align: center;
     font-size: 20px;
     font-family: "Libre Franklin", sans-serif;
     margin-top: 20px;
+
+    flex-grow: 1;
+    gap: 20px;                                      /*20px gap between all elements*/
 }
 
 .title img {
     width: 200px; /* Adjust width as needed */
     height: auto; /* Keep aspect ratio */
 }
+
 /*make the legend sit at the bottom of screen*/
 #list {
     margin-top: auto;
 }
+
+/*styles for the apply button*/
+#apply-button {
+    width: 80%;                       /*80% of available width*/
+    height: 50px;                     /*set height of 50px*/
+    background-color: yellow;       /*set background colour of button*/
+    border: 2px solid black;        /*button border*/
+    font-size: 20px;                  /*set font size*/
+}
+#apply-button:hover {
+    border: 5px solid black;        /*increase border size when user hovers over*/
+    font-weight: bold;                /*make font bold*/
+}
+
 /*legend box styling*/
 ul {
     list-style-type: none;          /*no bullet points*/
@@ -68,6 +106,7 @@ ul {
     color: black;
     background-color: lightskyblue;
 }
+
 /*styling for each list item*/
 li {
     display: flex;
@@ -79,6 +118,7 @@ li {
     border-left: 2px solid black;
     border-right: 2px solid black;
 }
+
 /*different backround colour for each list item*/
 #green {
     border-top: 2px solid black;
