@@ -1,112 +1,111 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ListComponent } from "../list/list.component";
-import { Item } from '../../models/item.model';
-import { ChartDataService } from '../../services/chart-data.service';
 import { ChartComponent } from '../chart/chart.component';
+
+// The structure for each flight in your component
+interface FlightStock {
+  flightNum: string;
+  stock: { name: string; quantity: number; epc: string }[];
+}
+
+// The structure returned by your API (adjust as needed)
+interface Data {
+  index: number;
+  type: string;
+  epc: string;
+  readtime: string;
+  inserttime: string;
+  id: number;
+  userdata: string;
+  reserveddata: string;
+  totalcount: number;
+}
 
 @Component({
   selector: 'app-trolley',
   imports: [ListComponent, ChartComponent],
   standalone: true,
   templateUrl: './trolley.component.html',
-  styleUrl: './trolley.component.css'
+  styleUrls: ['./trolley.component.css']
 })
-export class TrolleyComponent {
-  // demo hardcoded array of stock
-  flightStock: any[] = [
+export class TrolleyComponent implements OnInit {
+  // Initially, hardcoded flightStock with flight "0000"
+  flightStock: FlightStock[] = [
     {
       flightNum: "0000",
       stock: [
-              // Drinks
-      { name: "Coke", quantity: 40 },
-      { name: "Pepsi", quantity: 30 },
-      { name: "Fanta", quantity: 20 },
-      { name: "Sprite", quantity: 25 },
-      { name: "Heineken", quantity: 15 },
-      { name: "Budweiser", quantity: 12 },
-      { name: "Red Wine", quantity: 10 },
-      { name: "White Wine", quantity: 8 },
-      { name: "Whiskey", quantity: 5 },
-      { name: "Orange Juice", quantity: 18 },
-      { name: "Apple Juice", quantity: 16 },
-      { name: "Still Water", quantity: 0 },
-      { name: "Sparkling Water", quantity: 30 },
-
-      // Snacks
-      { name: "Pringles", quantity: 6 },
-      { name: "Peanuts", quantity: 12 },
-      { name: "Almonds", quantity: 10 },
-      { name: "Cashews", quantity: 0 },
-      { name: "Chocolate Bar", quantity: 14 },
-      { name: "Gummy Bears", quantity: 9 },
-      { name: "Protein Bar", quantity: 7 },
-      { name: "Cookies", quantity: 15 },
-
-      // Hot Meals
-      { name: "Chicken Curry with Rice", quantity: 10 },
-      { name: "Beef Lasagna", quantity: 12 },
-      { name: "Vegetarian Pasta", quantity: 8 },
-      { name: "Grilled Salmon with Vegetables", quantity: 6 },
-      { name: "Cheese Omelette", quantity: 5 },
-      { name: "Pancakes with Maple Syrup", quantity: 7 },
-      { name: "Mushroom Risotto", quantity: 4 },
-
-      // Perfumes
-      { name: "Chanel No. 5", quantity: 3 },
-      { name: "Dior Sauvage", quantity: 51 },
-      { name: "Gucci Bloom", quantity: 4 },
-      { name: "Armani Code", quantity: 0 },
-      { name: "YSL Black Opium", quantity: 7 },
-      { name: "Versace Eros", quantity: 5 },
-      { name: "Hugo Boss Bottled", quantity: 16 },
-      ]
-    },
-    {
-      flightNum: "0001",
-      stock: [
-        { name: "Coke", quantity: 25 },
-        { name: "Heineken", quantity: 0 },
-        { name: "Pringles", quantity: 8 },
-        { name: "Peanuts", quantity: 12 }
-      ]
-    },
-    {
-      flightNum: "0002",
-      stock: [
-        { name: "Coke", quantity: 10 },
-        { name: "Heineken", quantity: 12 },
-        { name: "Pringles", quantity: 5 },
-        { name: "Juice", quantity: 20 }
+        { name: "Coke", quantity: 40, epc: "sgvadfbdfab" },
+        { name: "Pepsi", quantity: 30, epc: "ffbadfbfdb" },
+        // ...other items if needed
       ]
     }
+    // Other flights can be added here if needed
   ];
 
   // setting the route to the current activated route
   constructor(private route: ActivatedRoute) {}
 
   // initializing flightNum in trolley page and array of Items for stock
-  flightNum : string | null = "";
-  stock : Item[] = [];
+  flightNum: string | null = "";
+  stock: { name: string; quantity: number; epc: string }[] = [];
 
   // array of screen options to choose from and declaration of current option string
   options: string[] = ["Overview", "Products", "Graphs", "Warnings"];
   currentOption: string = "";
 
-  //initializing values/objects needed for rendering when component initialized
   ngOnInit() {
+    // Get flight number from query parameters (if used)
     this.flightNum = this.route.snapshot.queryParamMap.get("flightNum");
+
+    // Load fetched data and add it to flight "0000"
+    this.loadFetchedData();
+
+    // Update the displayed stock for the current flight
     this.stock = this.searchForData();
   }
 
-  //search function to get data associated with flightNum
-  searchForData() {
-    //find flight and return stock, if undefined return empty array
+  // Fetches data from the API and adds it to flight "0000"
+  loadFetchedData(): void {
+    fetch('http://localhost:8080/data')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((fetchedData: Data[]) => {
+        console.log('Fetched data:', fetchedData);
+        // Find flight "0000" in your flightStock array
+        const flight0000 = this.flightStock.find(flight => flight.flightNum === "0000");
+        if (flight0000) {
+          // Map each fetched Data item to a stock item
+          const newItems = fetchedData.map(item => ({
+            name: item.type,
+            quantity: item.totalcount,
+            epc: item.epc
+          }));
+          // Add the new items to the existing stock.
+          flight0000.stock = flight0000.stock.concat(newItems);
+
+          // If your component is showing data for flight "0000", update the displayed stock.
+          if (this.flightNum === "0000" || !this.flightNum) {
+            this.stock = flight0000.stock;
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+      });
+  }
+
+  // Searches the flightStock for data matching the flightNum from the URL.
+  searchForData(): { name: string; quantity: number; epc: string }[] {
     return this.flightStock.find(flight => flight.flightNum === this.flightNum)?.stock ?? [];
   }
 
-  // changes current option to be displayed
-  onOptionClick(option: string) {
+  // Change the current option to be displayed
+  onOptionClick(option: string): void {
     this.currentOption = option;
   }
 }

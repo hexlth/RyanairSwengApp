@@ -1,4 +1,5 @@
 export interface Item {
     name: string,
-    quantity: number
+    quantity: number,
+    epc: string
 }

@@ -4,6 +4,7 @@
         <p>Index</p>
         <p>Name</p>
         <p>Quantity</p>
+        <p>EPC</p>
     </div>
     <ul>
         @for (item of stock; track item) {
@@ -11,6 +12,7 @@
                 <p>{{$index + 1}}.</p>
                 <p>{{item.name}}</p>
                 <p>{{item.quantity}}</p>
+                <p>{{item.epc}}</p>
             </li>
         }
     </ul>
