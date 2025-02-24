@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="home">
+        <div class="title">
+            <img src="images/logo.svg" width="1200" height="300" alt="LOGO"/>
+            <h3 style="text-decoration: underline;">Low Fares Made Simple</h3>
+
+            <div class="options">
+                <ul>
+                    @for(option of options; track option) {
+                        <li (click)="onOptionClick(option)" [class.selected]="option === currentOption">{{option}}</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="flight-heading">
+            <h1 class="flight box">Flight Number:</h1>
+            <input [value]="flightNum">
+        </div>
+        @if (currentOption === "Products") {
+            <app-list [stock]="stock"></app-list>
+        }
+        @if (currentOption === "Graphs") {
+            <app-chart [stock]="stock"></app-chart>
+        }
+    </div>
+</div>

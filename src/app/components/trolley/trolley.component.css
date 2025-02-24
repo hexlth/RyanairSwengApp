@@ -1,0 +1,147 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+.home {
+    background: linear-gradient(135deg, #1F1FFF, #4949FF);
+    min-width: 225px;
+    width: 20vw; /* Adjust the sidebar width as needed */
+    left: 0;
+    top: 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content {
+    background-color: white; /* Set background color to white */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: calc(100vw - 20vw); /* Make it fill remaining width after sidebar */
+    height: 100vh;
+}
+
+/*layout for the heading box at top of each screen*/
+.flight-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: var(--view-elements-width);
+    height: 150px;
+    background-color: blue;
+    border-radius: var(--border-radis);
+}
+
+/*styling for the first text element inside the top headng box*/
+.flight-heading h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: yellow;
+    width: 300px;
+    height: 50px;
+    font-size: 25px;
+
+    margin-left: 50px;
+    border-radius: var(--border-radis);
+}
+.flight-heading input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    background-color: lightskyblue;
+    width: 300px;
+    height: 50px;
+    font-size: 25px;
+
+    margin-left: 50px;
+    border-radius: var(--border-radis);  
+}
+
+.title {
+    /* Styling for text inside the sidebar */
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 20px);                     /*height of box minus the bottom border of legend box*/
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Libre Franklin", sans-serif;
+    margin-top: 20px;
+
+    flex-grow: 1;
+    gap: 20px;                                      /*20px gap between all elements*/
+}
+
+.title img {
+    width: 200px; /* Adjust width as needed */
+    height: auto; /* Keep aspect ratio */
+}
+
+/*putting options in flexbox with adjustable height and width*/
+.options {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    flex-grow: 1;           
+}
+
+/*style the options list*/
+.options ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+/*style each option*/
+.options li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+    height: 50px;
+
+    color: white;
+    border-radius: var(--border-radis);
+}
+.options li:hover {
+    color: blue;
+    background-color: rgba(255, 255, 255, 0.6);                     /*pure white with 0.6 opacity*/
+    backdrop-filter: blur(3px);                                       /*slight blur effect*/
+    transform: scale(1.02);                                           /*item appears to grow upon hover*/
+    transition: background-color 0.2s ease-in-out, transform 0.6s;    /*animation of background when hovering*/
+}
+
+.options li.selected {
+    color: blue;
+    font-weight: bold;
+    background-color: white;
+    transform: scale(1.02);
+}

@@ -1,0 +1,17 @@
+<div class="list">
+    <header class="title">Flight Inventory</header>
+    <div class="list-headings">
+        <p>Index</p>
+        <p>Name</p>
+        <p>Quantity</p>
+    </div>
+    <ul>
+        @for (item of stock; track item) {
+            <li [ngClass]="getClass(item.quantity)" [id]="$index === stock.length - 1">
+                <p>{{$index + 1}}.</p>
+                <p>{{item.name}}</p>
+                <p>{{item.quantity}}</p>
+            </li>
+        }
+    </ul>
+</div>

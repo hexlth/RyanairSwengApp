@@ -1,0 +1,5 @@
+ <div class="container">
+    <span class="title">{{title}}</span>
+    <ngx-slider class="slider" [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (valueChange)="onMinChange($event)"
+    (highValueChange)="onMaxChange($event)" ></ngx-slider>
+</div>

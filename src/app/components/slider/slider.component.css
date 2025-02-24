@@ -1,0 +1,46 @@
+/*styling for the whole slider container*/
+.container {
+    display: flex;                      /*make container flex*/
+    flex-direction: column;             /*column layout*/
+    align-items: center;                /*align items in the centre on both x and y axis*/
+    justify-content: center;    
+
+    width: 100%;                            /*make container take 100% of available width and height*/
+    height: 100%;
+
+    background-color: lightskyblue;             /*set background colour*/
+    border-bottom: 5px solid lightskyblue;      /*slight border on the bottom to prevent slider pointers overflowing box*/
+}
+
+/*Style the title above the slider*/
+.title {
+    text-align: center;           /*align the title in centre*/
+    font-size: 20px;              /*set font size and font colour*/
+    color: black;
+}
+
+/*style the slider element (size)*/
+.slider {
+    width: 80%;         /*slider element takes 80% of whole box*/
+}
+
+/*styles for the whole bar of slider*/
+::ng-deep .slider .ngx-slider-bar {
+    width: 100% !important;         /*make bar take up 100% of designated width*/
+}
+
+/*style for selected portion of slider (in between the pointers)*/
+::ng-deep .slider .ngx-slider-selection {
+    background-color: yellow !important;       /*set selected portion of slider to yellow*/
+}
+
+/*pointer styling*/
+::ng-deep .slider .ngx-slider-pointer {
+    background-color: gray !important;         /*set the pointer colour*/
+}
+
+/*styling labels of slider (not working for some reason, look online for solutions)*/
+::ng-deep .slider .ngx-slider .ngx-slider-bubble {
+    font-size: 40px;
+    width: 10px !important;
+}
