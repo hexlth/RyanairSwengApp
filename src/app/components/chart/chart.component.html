@@ -1,0 +1,18 @@
+<div class="container" >
+    <div class="chart-container">
+        <canvas id="chart"></canvas>
+    </div>
+    <div class="chart-options">
+        <select (change)="setChartType($event)">
+            <option value="bar">Bar Chart</option>
+            <option value="line">Line Chart</option>
+            <option value="pie">Pie Chart</option>
+            <option value="doughnut" >Doughnut Chart</option>
+        </select>
+
+        <app-slider title="Select a range" [minValue]="minSliderValue" [maxValue]="maxSliderValue" [cap]="maxValue"
+        (minChange)="updateMinValue($event)" (maxChange)="updateMaxValue($event)"></app-slider>
+         
+        <button id="apply-button" (click)="updateChart()">Apply</button>
+    </div>
+</div>

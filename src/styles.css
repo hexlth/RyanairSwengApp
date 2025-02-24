@@ -1,9 +1,24 @@
 /* Ensure html and body take up full height */
 html, body {
-    height: 100%; 
-    margin: 0;  
-    background-color: blue;    
+    height: 100vh;
+    margin: 0;   
+    background-color: blue;
   }
+
+/*global button animations*/
+button:hover {
+    transform: scale(1.05);
+    transition: background-color 0.2s ease-in-out, transform 0.3s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+:root {
+    --border-radis: 20px;
+    --view-elements-width: 75vw;
+}
     
 
   

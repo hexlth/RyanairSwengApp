@@ -1,35 +1,28 @@
 <div class="container">
     <div class="home">
         <div class="title">
-            <!-- Slider area of file, put all filters here-->
             <img src="images/logo.svg" width="1200" height="300" alt="LOGO"/>
             <h3 style="text-decoration: underline;">Low Fares Made Simple</h3>
 
-            <select (change)="setChartType($event)">
-                <option value="bar">Bar Chart</option>
-                <option value="line">Line Chart</option>
-                <option value="pie">Pie Chart</option>
-                <option value="doughnut" >Doughnut Chart</option>
-            </select>
-
-            <app-slider title="Select a range" [minValue]="minSliderValue" [maxValue]="maxSliderValue" [cap]="maxValue"
-            (minChange)="updateMinValue($event)" (maxChange)="updateMaxValue($event)"></app-slider>
-             
-            <button id="apply-button" (click)="updateChart()">Apply</button>
-
-            <ul id="list">
-                Legend
-                <li id="green">Green = High stock</li>
-                <li id="yellow">Yellow = Med Stock</li>
-                <li id="red">Red = Low Stock</li>
-                <li id="gray">Gray = No stock</li>
-            </ul>
+            <div class="options">
+                <ul>
+                    @for(option of options; track option) {
+                        <li (click)="onOptionClick(option)" [class.selected]="option === currentOption">{{option}}</li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
     <div class="content">
-        <div class="chart-container">
-            <canvas id="chart"></canvas>
+        <div class="flight-heading">
+            <h1 class="flight box">Flight Number:</h1>
+            <input [value]="flightNum">
         </div>
-        <app-list id="item-list" [stock]="stock"></app-list>
+        @if (currentOption === "Products") {
+            <app-list [stock]="stock"></app-list>
+        }
+        @if (currentOption === "Graphs") {
+            <app-chart [stock]="stock"></app-chart>
+        }
     </div>
 </div>
