@@ -9,7 +9,7 @@ interface FlightStock {
   stock: { name: string; quantity: number; epc: string }[];
 }
 
-// The structure returned by your API (adjust as needed)
+//
 interface Data {
   index: number;
   type: string;

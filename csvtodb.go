@@ -10,6 +10,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+// Columns in database
 type Data struct {
 	Index        int    `json:"index"`
 	Type         string `json:"type"`
@@ -23,27 +24,28 @@ type Data struct {
 }
 
 func getData() ([]Data, error) {
+	//opens database
 	db, err := sql.Open("sqlite3", "database.db")
 	if err != nil {
-		print("Luke smells")
+		fmt.Printf("%v\n", err)
 		return nil, err
 	}
 	defer db.Close()
-
+	//queries all data in database
 	rows, err := db.Query(`SELECT * from data`)
 	if err != nil {
-		print("Batman smells")
+		fmt.Printf("%v\n", err)
 		return nil, err
 	}
 	defer rows.Close()
-
+	//return data
 	var datas []Data
 	for rows.Next() {
 		var data Data
 		err = rows.Scan(&data.Index, &data.Type, &data.EPC, &data.ID, &data.UserData, &data.ReservedData, &data.TotalCount,
 			&data.ReadTime, &data.InsertTime)
 		if err != nil {
-			fmt.Printf("Robin laid an egg: %v\n", err)
+			fmt.Printf("%v\n", err)
 			return nil, err
 		}
 
@@ -59,7 +61,7 @@ func dataHandler(w http.ResponseWriter, r *http.Request) {
 
 	datas, err := getData()
 	if err != nil {
-		http.Error(w, "TypeScript Smells", http.StatusInternalServerError)
+		http.Error(w, "Data not parsed", http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(datas)
@@ -90,6 +92,8 @@ func main() {
 	// 	timeNow := time.Now().Format("15:04:05 02 January 2006")
 	// 	valuesSQL.Exec(value[0], value[1], value[2], value[3], value[4], value[5], value[6], value[7], timeNow)
 	// }
+
+	//endpoint data
 	http.HandleFunc("/data", dataHandler)
 	port := 8080
 	fmt.Printf("Server is running %d", port)
