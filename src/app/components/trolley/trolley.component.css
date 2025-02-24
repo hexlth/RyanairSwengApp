@@ -27,52 +27,61 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start; /* Align children at the top */
     align-items: center;
-    width: calc(100vw - 20vw); /* Make it fill remaining width after sidebar */
+    width: calc(100vw - 20vw); /* Fill remaining width after sidebar */
     height: 100vh;
+    padding-top: 20px; /* Optional: adds some space from the top edge */
 }
 
-/*layout for the heading box at top of each screen*/
+
 .flight-heading {
+    /* Use row direction if you want them side by side; column if stacked */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: column; /* or row */
     align-items: flex-start;
+    /* Remove fixed height so the box expands based on its content */
     width: var(--view-elements-width);
-    height: 150px;
-    background-color: blue;
-    border-radius: var(--border-radis);
-}
-
-/*styling for the first text element inside the top headng box*/
-.flight-heading h1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: yellow;
-    width: 300px;
-    height: 50px;
-    font-size: 25px;
-
-    margin-left: 50px;
-    border-radius: var(--border-radis);
-}
-.flight-heading input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    color: white;
-    background-color: lightskyblue;
-    width: 300px;
-    height: 50px;
-    font-size: 25px;
-
-    margin-left: 50px;
-    border-radius: var(--border-radis);  
-}
+  
+    /* A more subdued blue or keep your original color */
+    background-color: #2f2ffc;
+    border-radius: 8px; /* or var(--border-radis) if that’s your variable */
+  
+    /* Add padding so the contents aren’t flush against the edges */
+    padding: 20px;
+  
+    /* Gap creates spacing between child elements (h1 and input) */
+    gap: 50px;
+  }
+  
+  .flight-heading h1 {
+    /* Remove hard-coded width/height; let the text size the element */
+    margin: 0;
+    color: #fff; /* White text on a blue background */
+    font-size: 24px;
+    /* Optional: remove background color for a simpler look */
+    background-color: transparent;
+    /* If you want a subtle highlight, try a light overlay:
+       background-color: rgba(255, 255, 255, 0.1); */
+    border-radius: 4px;
+    padding: 8px;
+  }
+  
+  .flight-heading input {
+    /* Make the input match your color scheme nicely */
+    color: #333; /* Dark text for readability */
+    background-color: #fff; /* White background for contrast */
+    font-size: 16px;
+  
+    /* Add some padding and border for a clean look */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  
+    /* Remove large margin-left; rely on flex gap or spacing */
+    margin: 0;
+  }
+  
 
 .title {
     /* Styling for text inside the sidebar */
@@ -133,7 +142,7 @@
 }
 .options li:hover {
     color: blue;
-    background-color: rgba(255, 255, 255, 0.6);                     /*pure white with 0.6 opacity*/
+    background-color: rgba(205, 204, 204, 0.6);                     /*pure white with 0.6 opacity*/
     backdrop-filter: blur(3px);                                       /*slight blur effect*/
     transform: scale(1.02);                                           /*item appears to grow upon hover*/
     transition: background-color 0.2s ease-in-out, transform 0.6s;    /*animation of background when hovering*/
