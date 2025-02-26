@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../models/item.model';
 
@@ -8,7 +8,7 @@ import { Item } from '../../models/item.model';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export class ListComponent implements OnChanges  {
   // constructor to inject dataService to 
 
   // the stock of current flight number passed in
@@ -16,6 +16,11 @@ export class ListComponent {
   //category for list
   category: String = "all";
 
+  ngOnChanges() {
+    if (this.stock) {
+      this.stock = [...this.stock].sort((a, b) => b.quantity - a.quantity);
+    }
+  }
   // function to assign class which will dicate the background colour
   getClass(quantity: number) {
     if(quantity > 30) {
