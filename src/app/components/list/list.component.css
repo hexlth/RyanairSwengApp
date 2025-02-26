@@ -10,22 +10,6 @@
     overflow: hidden; /* Prevents expanding */
 }
 
-/* Container for title & search bar */
-.title-container {
-    display: flex;
-    justify-content: space-between; /* Ensures spacing */
-    align-items: center; /* Vertically aligns items */
-    width: 100%; /* Full width of the list */
-}
-
-/*styling the title of list*/
-.title {
-    font-size: 30px;                        
-    height: 50px;                             
-    flex-shrink: 0;                         
-    text-align: left;                     
-}
-
 .flight-heading {
     display: flex;
     align-items: center; /* Aligns title and input vertically */
