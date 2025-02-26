@@ -1,80 +1,104 @@
 /*container for full list*/
 .list {
-    display: flex;                                       /*flex display*/
-    flex-direction: column;                              /*column layout*/
-    width: calc(var(--view-elements-width) - 20px);      /*setting width and height*/
+    display: flex;                                       
+    flex-direction: column;                              
+    width: calc(var(--view-elements-width) - 20px);      
     height: 70vh;                       
     padding: 10px;
-    border-radius: var(--border-radis);                  /*setting border radius*/
-    background-color: #daf0ee;                /*background colour*/
+    border-radius: var(--border-radis);                  
+    background-color: #daf0ee;                
+    overflow: hidden; /* Prevents expanding */
+}
+
+/* Container for title & search bar */
+.title-container {
+    display: flex;
+    justify-content: space-between; /* Ensures spacing */
+    align-items: center; /* Vertically aligns items */
+    width: 100%; /* Full width of the list */
 }
 
 /*styling the title of list*/
 .title {
-    font-size: 30px;                        /*setting font size*/
-    height: 50px;                             /*setting height of title element*/
-    flex-shrink: 0;                         /*prevent shrinking*/
-    text-align: left;                     /*align text in the centre*/
+    font-size: 30px;                        
+    height: 50px;                             
+    flex-shrink: 0;                         
+    text-align: left;                     
 }
+
+.flight-heading {
+    display: flex;
+    align-items: center; /* Aligns title and input vertically */
+    gap: 10px; /* Adds spacing between heading and input */
+    width: 100%; /* Ensures it takes full width */
+}
+
+.flight-heading h1 {
+    font-size: 30px; /* Adjust title size */
+}
+
+/* Headings */
 .list-headings {
     display: flex;                           
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    flex-grow: 1;
+    flex-grow: 0;
     width: 100%;
-    height: 50px;
-
+    height: 50px; /* Fixed heading height */
     font-size: 30px;
     color: white;
     background-color: lightskyblue;
-
     border-radius: var(--border-radis);
     margin-top: 5px;
     margin-bottom: 5px;
 }
 .list-headings p {
-    flex: 1;                 /* Make each element take equal width */
-    text-align: center;      /* Align text in the center */
-    margin: 0;               /* Remove default margins */
+    flex: 1;                 
+    text-align: center;      
+    margin: 0;               
 }
 
-/*style for list itself*/
+/* Style for list itself */
 .list ul {
     display: flex;
     flex-direction: column;
-    list-style-type: none;              /*no bullet points*/
-    margin: 0;                          /*0 bullet point margin*/
-    padding: 0;                         /*0 bullet point padding*/
-    width: 100%;                        /*width 100% of flex box*/
+    list-style-type: none;              
+    margin: 0;                          
+    padding: 0;                         
+    width: 100%;                        
     height: 100%;
-    flex-grow: 1;                       /*make the list items grow to fill available space*/
-    overflow-y: auto;                   /*preventing list content from overflowing*/
+    flex-grow: 1;                       
+    overflow-y: auto; /* Enables scrolling instead of expanding */
     font-size: 25px;                  
-    border: 2px solid black;;
+    border: 2px solid black;
 }
-/*style for each list element*/
+
+/* Fixed row height */
 .list li {
-    /* making display flex, column layout and adding a border to each list item, make items grow to fill available space*/
     display: flex;                           
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    flex-grow: 1;
+    flex-grow: 0;
     width: 100%;
+    height: 50px; /* Fixed row height */
     border-bottom: 2px solid black;
 }
 
+/* Ensure text doesn't stretch */
 .list li p {
-    flex: 1;                 /* Make each element take equal width */
-    text-align: center;      /* Align text in the center */
-    margin: 0;               /* Remove default margins */
+    flex: 1;                 
+    text-align: center;      
+    margin: 0;               
+    overflow: hidden;
+    white-space: nowrap; /* Prevents text from wrapping */
+    text-overflow: ellipsis; /* Adds "..." when text is too long */
 }
 
-.list li:last-child {
-    border-bottom: none;
-}
-/*setting background colour based on quantity for each item in list*/
+
+
+/* Stock background colors */
 .high-stock {
     background-color: #90dd75;
 }
@@ -85,5 +109,18 @@
     background-color: #f28b82;
 }
 .no-stock {
-    background-color: #d3d6e9
+    background-color: #d3d6e9;
+}
+
+.search-bar {
+    width: 200px; /* Smaller width */
+    height: 30px; /* Matches heading size */
+}
+
+.search-bar input {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: var(--border-radis);
 }

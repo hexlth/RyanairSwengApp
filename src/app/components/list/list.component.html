@@ -1,13 +1,20 @@
+
 <div class="list">
-    <header class="title">Flight Inventory</header>
+    <div class="flight-heading">
+        <h1 class="flight box">Flight Inventory:</h1>
+        <div class="search-bar">
+            <input [(ngModel)]="searchTerm" placeholder="Search items...">
+        </div>
+    </div>
+
     <div class="list-headings">
         <p>Index</p>
         <p>Name</p>
         <p>Quantity</p>
     </div>
     <ul>
-        @for (item of stock; track item) {
-            <li [ngClass]="getClass(item.quantity)" [id]="$index === stock.length - 1">
+        @for (item of filteredStock; track item) {
+            <li [ngClass]="getClass(item.quantity)">
                 <p>{{$index + 1}}.</p>
                 <p>{{item.name}}</p>
                 <p>{{item.quantity}}</p>
