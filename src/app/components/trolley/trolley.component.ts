@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ListComponent } from "../list/list.component";
 import { ChartComponent } from '../chart/chart.component';
+import { ScanComponent } from '../Upload-Scan/scan.component';
 
 // The structure for each flight in your component
 interface FlightStock {
@@ -24,7 +25,7 @@ interface Data {
 
 @Component({
   selector: 'app-trolley',
-  imports: [ListComponent, ChartComponent],
+  imports: [ListComponent, ChartComponent, ScanComponent],
   standalone: true,
   templateUrl: './trolley.component.html',
   styleUrls: ['./trolley.component.css']
@@ -51,7 +52,7 @@ export class TrolleyComponent implements OnInit {
   stock: { name: string; quantity: number; epc: string }[] = [];
 
   // array of screen options to choose from and declaration of current option string
-  options: string[] = ["Overview", "Products", "Graphs", "Warnings"];
+  options: string[] = ["Overview", "Products", "Graphs", "Warnings", "Scan"];
   currentOption: string = "";
 
   ngOnInit() {

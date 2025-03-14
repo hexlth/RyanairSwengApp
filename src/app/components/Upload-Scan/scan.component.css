@@ -1,0 +1,58 @@
+.scan {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(var(--var-width, 100%) - 30px);
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.title {
+  font-size: 30px;
+  height: 50px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-btn {
+  margin-top: 15px;
+  background-color: #28a745; /* green button */
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+
+

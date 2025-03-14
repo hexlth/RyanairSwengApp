@@ -24,5 +24,8 @@
         @if (currentOption === "Graphs") {
             <app-chart [stock]="stock"></app-chart>
         }
+        @if (currentOption == "Scan"){
+            <app-scan></app-scan>
+        }
     </div>
 </div>
