@@ -13,7 +13,7 @@
 .input-field {
     display: flex;
     flex-direction: column;
-    width: 80%;  /* Ensure it takes full width of the sidebar */
+    width: 100%;  /* Ensure it takes full width of the sidebar */
     align-items: center; /* Center input field */
 }
 

@@ -24,16 +24,16 @@
 .list-headings {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between; /* Ensures proper spacing */
     align-items: center;
-    width: 100%;
-    height: 50px; /* Fixed heading height */
+    width: 96%;
+    height: 50px; /* Fixed height */
     font-size: 30px;
     color: white;
     background-color: lightskyblue;
     border-radius: var(--border-radis);
     margin: 5px 0;
-    padding: 0 10px;
+    padding: 0 20px; /* Adds spacing on left and right */
 }
 
 .list-headings p {
@@ -55,6 +55,7 @@
     overflow-y: auto; /* Enables scrolling instead of expanding */
     font-size: 25px;                  
     border: 2px solid black;
+    border-radius: var(--border-radis);
 }
 
 /* Fixed row height */
@@ -72,9 +73,6 @@
     transition: background-color 0.2s ease;
 }
 
-.list li:hover {
-    background-color: rgba(0, 0, 0, 0.05); /* Subtle hover effect */
-}
 
 /* Ensure text doesn't stretch */
 .list li p {
@@ -103,15 +101,18 @@
 }
 
 .search-bar {
-    width: 200px; /* Smaller width */
-    height: 30px; /* Matches heading size */
+    width: 50%; /* Matches list width */
+    display: flex;
+    justify-content: left; /* Centers it */
+    margin-bottom: 10px; /* Adds space between search and headings */
 }
 
 .search-bar input {
-    width: 100%;
-    height: 100%;
+    width: 50%; /* Adjust width as needed */
+    height: 35px; /* Match styling */
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: var(--border-radis);
+    padding: 5px;
 }
 
