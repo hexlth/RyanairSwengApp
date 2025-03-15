@@ -1,10 +1,12 @@
-<div class="Scan">
+<div class="scan">
     <header class="title">Flight Inventory</header>
     <div class="file-upload-container">
-        <input type="file" accept=".csv" (change)="onFileSelected($event)" hidden #fileInput>
-        <button (click)="fileInput.click()">Upload CSV File</button>
-        @if (selectedFileName) {
-            <p>Selected file: {{ selectedFileName }}</p>
-          }
+      <input type="file" accept=".csv" (change)="onFileSelected($event)" hidden #fileInput>
+      <button (click)="fileInput.click()">Upload CSV File</button>
+  
+      @if (selectedFileName) {
+        <p>Selected file: {{ selectedFileName }}</p>
+      }
     </div>
-</div>
+  </div>
+  

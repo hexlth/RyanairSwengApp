@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ScanComponent } from './scan.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ScanComponent', () => {
   let component: ScanComponent;
@@ -7,9 +8,8 @@ describe('ScanComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ScanComponent]
-    })
-    .compileComponents();
+      imports: [ScanComponent, HttpClientTestingModule]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ScanComponent);
     component = fixture.componentInstance;
