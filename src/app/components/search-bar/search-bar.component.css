@@ -19,22 +19,13 @@
 
 /* Styling for the search input */
 .search-input {
-    font-size: 20px;
+    font-size: 15px;
     width: 100%;  /* Make input field take full width of the sidebar */
     height: 40px;
     border-radius: 20px;
     font-family: "Libre Franklin", sans-serif;
 }
 
-/* Hover effect for the input field */
-/* .search-input:hover {
-    border-width: 2px;
-}
-
-.search-input.valid {
-    color: black;
-    border-color: black;
-} */
 
 /* Styling for invalid input */
 .search-input.invalid {
@@ -55,7 +46,7 @@
     width: 60%;  /* Make button take full width of the sidebar */
     height: 40px;
     background: linear-gradient(135deg, #FFD400, #FFDD3C);
-    font-size: 20px;
+    font-size: 15px;
     font-family: "Libre Franklin", sans-serif;
     border-radius: 20px;
     margin-top: 10px;  /* Space between the button and the input field */
@@ -67,19 +58,3 @@
     border-width: 3px;
 }
 
-/* Styling for the search button */
-.faqs-button {
-    width: 40%;  /* Make button take full width of the sidebar */
-    height: 40px;
-    background: linear-gradient(135deg, #FFD400, #FFDD3C);
-    font-size: 20px;
-    font-family: "Libre Franklin", sans-serif;
-    border-radius: 20px;
-    margin-top: 200px;  /* Space between the button and the input field */
-}
-
-/* Hover effect for the button */
-.faqs-button:hover {
-    font-style: italic;
-    border-width: 3px;
-}

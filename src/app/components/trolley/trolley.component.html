@@ -16,7 +16,7 @@
     <div class="content">
         <div class="flight-heading">
             <h1 class="flight box">Flight Number:</h1>
-            <input [value]="flightNum">
+            <input [value]="flightNum" readonly>
         </div>
         @if (currentOption === "Products") {
             <app-list [stock]="stock"></app-list>

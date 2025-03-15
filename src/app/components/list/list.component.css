@@ -1,14 +1,13 @@
 /* Container for full list */
 .list {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    width: calc(var(--view-elements-width) - 50px);
-    height: 70vh;
-    padding: 20px;
-    border-radius: var(--border-radis);
-    background-color: #00BFFF; /* Same as rgb(0,191,255) */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle drop shadow */
+    display: flex;                                       
+    flex-direction: column;                              
+    width: calc(var(--view-elements-width) - 20px);      
+    height: 70vh;                       
+    padding: 10px;
+    border-radius: var(--border-radis);                  
+    background-color: #daf0ee;                
+    overflow: hidden; /* Prevents expanding */
 }
 
 /* Styling the title of list */
@@ -28,43 +27,46 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    height: 50px;
-    font-size: 20px; /* Slightly reduced font size */
-    color: #fff;
-    background-color: #007BFF; /* A darker blue for contrast */
+    height: 50px; /* Fixed heading height */
+    font-size: 30px;
+    color: white;
+    background-color: lightskyblue;
     border-radius: var(--border-radis);
     margin: 5px 0;
     padding: 0 10px;
 }
 
 .list-headings p {
-    flex: 1;
-    text-align: center;
-    margin: 0;
+    flex: 1;                 
+    text-align: center;      
+    margin: 0;               
 }
 
-/* Style for the list itself */
+/* Style for list itself */
 .list ul {
     display: flex;
     flex-direction: column;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    flex-grow: 1;
-    overflow-y: auto;
-    font-size: 18px; /* Adjusted for readability */
-    border: 2px solid #ddd; /* Lighter border color */
-    border-radius: var(--border-radis);
+    list-style-type: none;              
+    margin: 0;                          
+    padding: 0;                         
+    width: 100%;                        
+    height: 100%;
+    flex-grow: 1;                       
+    overflow-y: auto; /* Enables scrolling instead of expanding */
+    font-size: 25px;                  
+    border: 2px solid black;
 }
 
-/* Style for each list element */
+/* Fixed row height */
 .list li {
-    display: flex;
+    display: flex;                           
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    flex-grow: 0;
     width: 100%;
+    height: 50px; /* Fixed row height */
+    border-bottom: 2px solid black;
     border-bottom: 1px solid #ddd; /* Lighter divider */
     padding: 10px 0;
     transition: background-color 0.2s ease;
@@ -74,31 +76,42 @@
     background-color: rgba(0, 0, 0, 0.05); /* Subtle hover effect */
 }
 
+/* Ensure text doesn't stretch */
 .list li p {
-    flex: 1;
-    text-align: center;
-    margin: 0;
+    flex: 1;                 
+    text-align: center;      
+    margin: 0;               
+    overflow: hidden;
+    white-space: nowrap; /* Prevents text from wrapping */
+    text-overflow: ellipsis; /* Adds "..." when text is too long */
 }
 
-.list li:last-child {
-    border-bottom: none;
-}
 
-/* Background color styling based on quantity for each item in list */
+
+/* Stock background colors */
 .high-stock {
-    background-color: #28a745; /* Vibrant green */
-    color: #fff;               /* White text for contrast */
+    background-color: #90dd75;
 }
 .med-stock {
-    background-color: #ffc107; /* Bright, sunny yellow */
-    color: #333;               /* Dark text for readability */
+    background-color: #fbc687;
 }
 .low-stock {
-    background-color: #dc3545; /* Bold red */
-    color: #fff;               /* White text for contrast */
+    background-color: #f28b82;
 }
 .no-stock {
-    background-color: #6c757d; /* Muted gray for out-of-stock */
-    color: #fff;
+    background-color: #d3d6e9;
+}
+
+.search-bar {
+    width: 200px; /* Smaller width */
+    height: 30px; /* Matches heading size */
+}
+
+.search-bar input {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: var(--border-radis);
 }
 
