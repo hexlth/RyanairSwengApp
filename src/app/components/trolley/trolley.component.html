@@ -18,7 +18,9 @@
     
     <div class="content">
         <div class="flight-heading">
-            <button class="toggle-sidebar" (click)="toggleSidebar()">SIDEBAR</button>
+            <button class="toggle-sidebar" (click)="toggleSidebar()">
+                <img width="30px" height="30px" src="images/icons/hamburger-icon.svg" alt="Menu">
+            </button>
             <div class="flight-content">
                 <h1 class="flight box">Flight Number:</h1>
                 <input [value]="flightNum" readonly>

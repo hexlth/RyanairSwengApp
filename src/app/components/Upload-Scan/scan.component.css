@@ -1,11 +1,28 @@
+/* Inherit width and height from dashboard screen */
+:host {
+  width: 100%;
+  height: calc(100% - 150px);             /*top search bar has 120px height with 10px top and bottom, (140 so add extra 10 for 10px gap at the bottom)*/
+  display: flex;
+}
+
 /* Main scan container */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  height: 100%;       /*Give the full scan container 100% of available width and height*/
+  width: 100%;
+}
+
+/*container with scan upload*/
 .scan {
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centers it vertically */
-  width: 400px; /* Adjust for a nice compact box */
+  justify-content: flex-start; /* Start content inside the scanbox from the top*/
+  width: clamp(200px, 50%, 1000px); /* Adjust for a nice compact box */
+  height: 80%;                      /*scanbox takes 80% of available height*/
   padding: 20px;
   border-radius: 15px; /* More rounded for modern look */
   background-color: white; /* White card look */
@@ -15,7 +32,7 @@
 
 /* Title styling */
 .title {
-  font-size: 26px;
+  font-size: var(--dynamic-font-regular);       /*Adjust the font size of title according to screen width*/
   font-weight: bold;
   color: #222;
   margin-bottom: 15px;
@@ -37,7 +54,7 @@ button {
   padding: 12px 20px;
   border-radius: 12px;
   border: none;
-  font-size: 16px;
+  font-size: var(--dynamic-font-regular);         /*Adjust button font based on screen width*/
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -54,12 +71,4 @@ p {
   margin-top: 10px;
   font-size: 18px;
   color: #555;
-}
-
-/* Centering the scan upload box */
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60vh; /* Makes sure it's centered */
 }

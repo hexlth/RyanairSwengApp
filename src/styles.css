@@ -22,7 +22,10 @@ button:active {
     --view-elements-width: 95%;
     --view-width: 100vw;
     --view-height: 100dvh;
-    --dynamic-font-title: clamp(1rem, 4vw, 1.4rem);
+    --dynamic-font-regular: clamp(1rem, 5vw, 1.6rem);
+    --dynamic-font-list: clamp(0.8rem, 4vw, 1.8rem);
+    --dynamic-button-width: clamp(50px, 20%, 250px);
+    --dynamic-slider-width: clamp(100px, 40%, 400px);
 }
     
 

@@ -1,3 +1,9 @@
+/* Container for full screen with slider */
+:host {
+    width: 100%;
+    display: flex;
+} 
+
 /*styling for the whole slider container*/
 .container {
     display: flex;                      /*make container flex*/
