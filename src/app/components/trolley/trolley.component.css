@@ -1,77 +1,129 @@
 .container {
     display: flex;
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     flex-shrink: 1;
     flex-grow: 1;
 }
 
-.home {
+/*style for the sidebar*/
+.sidebar {
     background: linear-gradient(135deg, #1F1FFF, #4949FF);
-    min-width: 225px;
-    width: 20vw; /* Adjust the sidebar width as needed */
+    width: clamp(225px, 25%, 400px);                                /*clamping width of sidebar to change based on screen width*/
     left: 0;
     top: 0;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: fixed;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/*sytles for when sidebar is open and visible on screen*/
+.sidebar.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Backdrop, this is the dimmed area beside sidebar when its visible, clicking on it closes sidebar */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-left: clamp(225px, 25%, 400px);                             /*margin to left of backdrop to push backdrop width of sidebar from left of screen,
+                                                                        MUST BE THE SAME AS THE SIDEBAR WIDTH*/
+
+    width: clamp(calc(100% - 225px), 75%, calc(100% - 400px));         /*width of backdrop clamped, this is the remainder of screen left by sidebar*/
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    opacity: 0;
+    visibility: hidden;
+}
+
+/*styling the backdrop for when its on screen*/
+.backdrop.show {
+    transition: opacity 0.5s ease, transform 1.5s ease, visibility 2.0s;
+    opacity: 1;
+    visibility: visible;
 }
 
 .content {
     background-color: white; /* Set background color to white */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Align children at the top */
     align-items: center;
-    width: calc(100vw - 20vw); /* Fill remaining width after sidebar */
-    height: 100vh;
-    padding-top: 20px; /* Optional: adds some space from the top edge */
+    width: 100%;
+    height: 100%;
 }
 
 
 .flight-heading {
     /* Use row direction if you want them side by side; column if stacked */
     display: flex;
-    flex-direction: column; /* or row */
-    align-items: flex-start;
+    flex-direction: row; /* or row */
+    align-items: center;
+    justify-content: flex-start;
     /* Remove fixed height so the box expands based on its content */
     width: var(--view-elements-width);
-    height: 150px;
+    height: 120px;                                  /*give the search bar a fixed height of 120px at all times*/
     background-color: blue;
     border-radius: var(--border-radis);
+
+    /*20px margin at the top and bottom*/
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/*button to toggle the sidebar*/
+.toggle-sidebar {
+    margin-left: 20px;
+}
+
+/*box for the flight number and title on dashboard screen*/
+.flight-content {
+    display: flex;                      /*flex display*/
+    flex-direction: column;             /*align in column*/
+    align-items: flex-start;            /*align in centre horizontally*/
+    justify-content: space-evenly;      /*space evenly vertically*/
+
+    width: 100%;
+    height: 90%;
 }
 
 /*styling for the first text element inside the top headng box*/
 .flight-heading h1 {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: left;
     background-color: lightskyblue;
     color: white;
-    width: 300px;
-    height: 50px;
-    font-size: 25px;
+    width: clamp(150px, 60%, 400px);
+    font-size: var(--dynamic-font-title);
 
     margin-left: 50px;
     border-radius: var(--border-radis);
+
 }
 .flight-heading input {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: left;
-    align-items: flex-start;
+    align-items: center;
     color: black;
     background-color: #daf0ee;
-    width: 300px;
-    height: 50px;
-    font-size: 25px;
+    width: clamp(150px, 60%, 400px);
+    font-size: var(--dynamic-font-title);
 
     margin-left: 50px;
     border-radius: var(--border-radis);  

@@ -1,10 +1,18 @@
+/* Container for full screen with chart */
+:host {
+    width: 100%;
+    height: calc(100% - 180px);         /*same as the list, minus 180px to get rest of screen height with 20px gap on the bottom*/
+    display: flex;
+}  
+
 /* Main container */
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     width: var(--view-elements-width);
-    height: calc(90vh - 150px);
-    gap: 20px;
+    flex: 1;
 }
 
 /* Chart container */
@@ -12,29 +20,20 @@
     display: flex;
     justify-content: center; /* Center chart */
     align-items: center;
-    width: 100%;
-    height: 100%; /* Takes remaining height */
-}
-
-.chart-options {
-    display: flex;
-    justify-content: space-between; /* Ensures even spacing */
-    align-items: center;
-    width: 100%;
-    height: 120px;
-    background-color: blue;
-    border-radius: var(--border-radis);
-    padding: 10px; /* Ensures space on the sides */
-    gap: 20px; /* Space between elements */
+    width: var(--view-elements-width);
+    flex: 0.9;
 }
 
 /* Flex container for controls */
 .options-container {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
-    gap: 10px; /* Ensures equal spacing */
+    width: calc(var(--view-elements-width) - 20px);        /*width of chart options is width of view elements but we minus 20px padding as 10px on both sides*/
+    height: 120px;                                         /*give the options a set height, same as the top bar*/
+    background-color: blue;
+    border-radius: var(--border-radis);
+    padding: 10px;
 }
 
 /* Dropdown Styling */
@@ -55,7 +54,7 @@
 .chart-slider {
     padding: 10px;
     border-radius: 12px;
-    flex: 2; /* This ensures the slider takes up more space */
+    flex: 1; /* This ensures the slider takes up more space */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +72,6 @@
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    flex: 1;
     max-width: 250px;
 }
 

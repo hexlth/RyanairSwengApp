@@ -55,6 +55,13 @@ export class TrolleyComponent implements OnInit {
   options: string[] = ["Overview", "Products", "Graphs", "Warnings", "Scan"];
   currentOption: string = "";
 
+  // boolean to toggle sidebar
+  isSidebarOpen: boolean = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   ngOnInit() {
     // Get flight number from query parameters (if used)
     this.flightNum = this.route.snapshot.queryParamMap.get("flightNum");

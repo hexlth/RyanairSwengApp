@@ -1,13 +1,20 @@
 /* Container for full list */
+:host {
+    width: var(--view-elements-width);
+    height: calc(100% - 180px);             /*top search bar has 120px height with 20px top and bottom, (160 so add extra 20 for 20px gap at the bottom)*/
+    display: flex;
+}  
+
 .list {
     display: flex;                                       
     flex-direction: column;                              
-    width: calc(var(--view-elements-width) - 20px);      
-    height: 70vh;                       
+    width: calc(100% - 20px);      
+    height: auto;                       
     padding: 10px;
     border-radius: var(--border-radis);                  
     background-color: #daf0ee;                
     overflow: hidden; /* Prevents expanding */
+    flex-grow: 1;
 }
 
 /* Styling the title of list */
