@@ -32,6 +32,9 @@
         @if (currentOption === "Graphs") {
             <app-chart [stock]="stock"></app-chart>
         }
+        @if (currentOption === "Warnings") {
+            <app-warnings [stock]="stock"></app-warnings>
+        }
         @if (currentOption == "Scan"){
             <app-scan></app-scan>
         }

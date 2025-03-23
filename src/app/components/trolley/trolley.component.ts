@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ListComponent } from "../list/list.component";
 import { ChartComponent } from '../chart/chart.component';
 import { ScanComponent } from '../Upload-Scan/scan.component';
+import { WarningsComponent } from '../warnings/warnings.component';
 
 // The structure for each flight in your component
 interface FlightStock {
@@ -25,7 +26,7 @@ interface Data {
 
 @Component({
   selector: 'app-trolley',
-  imports: [ListComponent, ChartComponent, ScanComponent],
+  imports: [ListComponent, ChartComponent, ScanComponent, WarningsComponent ],
   standalone: true,
   templateUrl: './trolley.component.html',
   styleUrls: ['./trolley.component.css']
@@ -38,6 +39,16 @@ export class TrolleyComponent implements OnInit {
       stock: [
         { name: "Coke", quantity: 40, epc: "sgvadfbdfab" },
         { name: "Pepsi", quantity: 30, epc: "ffbadfbfdb" },
+        { name: "Monster", quantity: 5, epc: "x37x7338jx3" },
+        { name: "Sprite", quantity: 10, epc: "xjjx882xj82x" },
+        { name: "Red Bull", quantity: 6, epc: "83x8j38xj83jx" },
+        { name: "Sandwich", quantity: 2, epc: "hx8h28hx8h82xh2hx" },
+        { name: "Coke Zero", quantity: 32, epc: "sgvadfbdfab" },
+        { name: "Chocolate Bar", quantity: 1, epc: "ffbadfbfdb" },
+        { name: "Wispa", quantity: 2, epc: "xi2jhnx2j2ijni2" },
+        { name: "Mars", quantity: 3, epc: "cnbcbcbcbcbcbcb" },
+        { name: "Haha", quantity: 38, epc: "xaxaxaxaxax" },
+        { name: "Tayto Salt and Vinegar", quantity: 2, epc: "hx8h28hx8h82xh2hx" },
         // ...other items if needed
       ]
     }
