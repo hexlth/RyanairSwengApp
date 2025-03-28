@@ -24,10 +24,11 @@ type Data struct {
 	TotalCount   int    `json:"totalcount"`
 	ReadTime     string `json:"readtime"`
 	InsertTime   string `json:"inserttime"`
+	FlightNumber string `json:"flightnumber"`
 }
 
-func getData(db *sql.DB) ([]Data, error) {
-	rows, err := db.Query(`SELECT * FROM data`)
+func getData(db *sql.DB, flightNumber string) ([]Data, error) {
+	rows, err := db.Query(`SELECT * FROM data WHERE flight_number = ?`, flightNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +38,7 @@ func getData(db *sql.DB) ([]Data, error) {
 	for rows.Next() {
 		var data Data
 		err := rows.Scan(&data.Index, &data.Type, &data.EPC, &data.ID, &data.UserData,
-			&data.ReservedData, &data.TotalCount, &data.ReadTime, &data.InsertTime)
+			&data.ReservedData, &data.TotalCount, &data.ReadTime, &data.InsertTime, &data.FlightNumber)
 		if err != nil {
 			return nil, err
 		}
@@ -51,7 +52,9 @@ func dataHandler(db *sql.DB) http.HandlerFunc {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 
-		datas, err := getData(db)
+		flightNumber := r.URL.Query().Get("flightNum")
+
+		datas, err := getData(db, flightNumber)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -94,13 +97,19 @@ func insertCSVData(db *sql.DB, csvPath string) error {
 	return nil
 }
 
-// CSV upload handler
 func uploadHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 
 		if r.Method != "POST" {
 			http.Error(w, "Only POST method allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		// Retrieve flight number from form data
+		flightNumber := r.FormValue("flightNum")
+		if flightNumber == "" {
+			http.Error(w, "flightNum not provided", http.StatusBadRequest)
 			return
 		}
 
@@ -111,7 +120,6 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 		}
 		defer file.Close()
 
-		// Read and insert CSV data
 		csvReader := csv.NewReader(file)
 		csvValues, err := csvReader.ReadAll()
 		if err != nil {
@@ -119,7 +127,7 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		insertSQL := `INSERT INTO data ("Index", "Type", "EPC", "ID", "UserData", "ReservedData", "TotalCount", "ReadTime", "InsertTime") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+		insertSQL := `INSERT INTO data ("Index", "Type", "EPC", "ID", "UserData", "ReservedData", "TotalCount", "ReadTime", "InsertTime", "flight_number") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 		stmt, err := db.Prepare(insertSQL)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -133,14 +141,14 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 				continue
 			}
 			timeNow := time.Now().Format("15:04:05 02 January 2006")
-			_, err = stmt.Exec(value[0], value[1], value[2], value[3], value[4], value[5], value[6], value[7], timeNow)
+			_, err = stmt.Exec(value[0], value[1], value[2], value[3], value[4], value[5], value[6], value[7], timeNow, flightNumber)
 			if err != nil {
 				log.Println("Error inserting row:", err)
 			}
 		}
 
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintln(w, "CSV uploaded successfully!")
+		fmt.Fprintf(w, "CSV uploaded successfully for flight %s!", flightNumber)
 	}
 }
 

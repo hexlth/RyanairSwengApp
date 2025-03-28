@@ -16,7 +16,7 @@
     <div class="content">
         <div class="flight-heading">
             <h1 class="flight box">Flight Number:</h1>
-            <input [value]="flightNum">
+            <input [(ngModel)]="flightNum" placeholder="Enter Flight Number">
         </div>
         @if (currentOption === "Products") {
             <app-list [stock]="stock"></app-list>
@@ -25,7 +25,7 @@
             <app-chart [stock]="stock"></app-chart>
         }
         @if (currentOption == "Scan"){
-            <app-scan></app-scan>
-        }
+            <app-scan [flightNum]="flightNum"></app-scan>
+        }        
     </div>
 </div>
