@@ -1,11 +1,16 @@
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;      
+}
+
 /* Layout for search bar inside the sidebar */
 .search-bar {
     display: flex;
     flex-direction: column;  /* Stack input field and button vertically */
-    justify-content: flex-start;  /* Align from the top */
+    justify-content: center;  /* Align from the top */
     align-items: center;  /* Center horizontally inside the sidebar */
-    height: auto;  /* Allow the height to adjust based on content */
-    margin-top: 200px;  /* Reduce this value to move it higher */
+    height: 100%;  /* Allow the height to adjust based on content */
     width: 100%;  /* Ensure it fits within the sidebar width */
 }
 
@@ -13,17 +18,19 @@
 .input-field {
     display: flex;
     flex-direction: column;
-    width: 100%;  /* Ensure it takes full width of the sidebar */
+    width: 80%;  /* Ensure it takes full width of the sidebar */
+    justify-content: center;
     align-items: center; /* Center input field */
 }
 
 /* Styling for the search input */
 .search-input {
-    font-size: 15px;
+    font-size: clamp(12px, 2vw, 24px);
     width: 100%;  /* Make input field take full width of the sidebar */
-    height: 40px;
+    height: clamp(15px, 50%, 50px);
     border-radius: 20px;
     font-family: "Libre Franklin", sans-serif;
+    flex: 1;
 }
 
 
@@ -36,20 +43,19 @@
 /* Error message styling */
 .error {
     color: red;
-    font-size: 20px;
-    margin-bottom: 10px;  /* Space below error message */
-    text-align: center; /* Ensure error message is centered */
+    font-size: clamp(8px, 0.8rem, 16px);
+    text-align: flex-start; /* Ensure error message is centered */
 }
 
 /* Styling for the search button */
 .search-button {
-    width: 60%;  /* Make button take full width of the sidebar */
-    height: 40px;
+    width: 50%;  /* Make button take full width of the sidebar */
+    height: clamp(15px, 50%, 50px);;
     background: linear-gradient(135deg, #FFD400, #FFDD3C);
-    font-size: 15px;
+    font-size: clamp(12px, 2vw, 24px);
     font-family: "Libre Franklin", sans-serif;
     border-radius: 20px;
-    margin-top: 10px;  /* Space between the button and the input field */
+    flex: 0;
 }
 
 /* Hover effect for the button */

@@ -76,7 +76,7 @@
     width: var(--view-elements-width);
     height: 120px;                                  /*give the search bar a fixed height of 120px at all times*/
     background-color: blue;
-    border-radius: var(--border-radis);
+    border-radius: var(--border-radius);
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -84,7 +84,7 @@
 /*button to toggle the sidebar*/
 .toggle-sidebar {
     margin-left: 20px;
-    border-radius: var(--border-radis);
+    border-radius: var(--border-radius);
     background-color: yellow;
 }
 
@@ -112,7 +112,7 @@
 
     margin-left: clamp(10px, 5%, 50px);
     padding: 2px;
-    border-radius: var(--border-radis);
+    border-radius: var(--border-radius);
     flex: 1;
 
 }
@@ -128,7 +128,7 @@
 
     margin-left: clamp(10px, 5%, 50px);
     margin-bottom: 10px;
-    border-radius: var(--border-radis); 
+    border-radius: var(--border-radius); 
     flex: 1; 
 }
 
@@ -188,7 +188,7 @@
 
     color: white;
     font-size: var(--dynamic-font-sidebar);
-    border-radius: var(--border-radis);
+    border-radius: var(--border-radius);
 }
 .options li:hover {
     color: blue;

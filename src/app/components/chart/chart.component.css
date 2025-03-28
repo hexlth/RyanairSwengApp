@@ -23,6 +23,7 @@
     align-items: center;
     width: var(--view-elements-width);
     flex: 0.9;
+    font-size: clamp(12px, 2rem, 24px);
 }
 
 /* Flex container for controls */
@@ -33,7 +34,7 @@
     width: calc(var(--view-elements-width) - 20px);        /*width of chart options is width of view elements but we minus 20px padding as 10px on both sides*/
     height: 120px;                                         /*give the options a set height, same as the top bar*/
     background-color: blue;
-    border-radius: var(--border-radis);
+    border-radius: var(--border-radius);
     padding: 10px;
 }
 

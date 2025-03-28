@@ -79,6 +79,22 @@ export class ChartComponent {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        scales: {
+          x: {
+            ticks: {
+              font: {
+                size: 18 // Change this to your desired font size
+              }
+            }
+          },
+          y: {
+            ticks: {
+              font: {
+                size: 18
+              }
+            }
+          }
+        }
       }
     };
   }

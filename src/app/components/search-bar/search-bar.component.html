@@ -1,8 +1,8 @@
 <div class="search-bar">
     <div class="input-field">
         <input [ngClass]="isInvalid ? 'invalid' : 'valid'"
-        class="search-input" (input)="onInputChange($event)" (keydown.enter)="searchFunction(inputValue)" placeholder="Enter a valid flight number"/>
-        <p class="error ">{{isInvalid ? "Enter a valid flight number!" : ""}}</p>
+        class="search-input" (input)="onInputChange($event)" (keydown.enter)="searchFunction(inputValue)" placeholder={{placeholder}}/>
+        <p class="error ">{{isInvalid ? errorMessage : ""}}</p>
     </div>
     <button class="search-button" (click)="searchFunction(inputValue)">Search</button>
 </div>

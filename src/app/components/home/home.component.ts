@@ -2,17 +2,20 @@ import { Component, Input, Output, OnInit } from '@angular/core';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MapComponent } from "../map/map.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SearchBarComponent, CommonModule],
+  imports: [SearchBarComponent, CommonModule, MapComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   // creating a flightNum input to be passed to searchBar
-  flightNum: string = "";
+  flightNum: String = "";
+  toIata: String = "";
+  fromIata: String = "";
 
   // valid boolean to be passed to searchbar
   invalid: boolean = false;
@@ -21,6 +24,20 @@ export class HomeComponent implements OnInit {
 
   // Inject the Router
   constructor(private router: Router) {}
+
+  // function to update the search parameters
+  updateFlightNum(input: String) {
+    this.flightNum = input;
+    console.log(this.flightNum);
+  }
+
+  updateToIata(e: Event) {
+    this.toIata = (e.target as HTMLInputElement).value;
+  }
+
+  updateFromIata(e: Event) {
+    this.fromIata = (e.target as HTMLInputElement).value;
+  }
 
   // creating method to be called by search button to check for flight numbers
   searchForFlightNum(searchQuery : string) {

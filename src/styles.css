@@ -18,7 +18,7 @@ button:active {
 
 /*defining global elements to be used throughout web app*/
 :root {
-    --border-radis: 20px;
+    --border-radius: 20px;
     --view-elements-width: 95%;
     --view-width: 100vw;
     --view-height: 100dvh;

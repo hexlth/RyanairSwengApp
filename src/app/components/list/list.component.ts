@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ✅ Import FormsModule
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { Item } from '../../models/item.model';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ Add FormsModule here
+  imports: [CommonModule, FormsModule], // Add FormsModule here
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
@@ -19,7 +19,7 @@ export class ListComponent implements OnChanges {
       return this.stock.sort((a, b) => b.quantity - a.quantity); // Show all if no search term
     }
 
-    // ✅ Allow partial matches in search
+    // Allow partial matches in search
     return this.stock
       .filter(item => 
         item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
