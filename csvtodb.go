@@ -106,7 +106,6 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		// Retrieve flight number from form data
 		flightNumber := r.FormValue("flightNum")
 		if flightNumber == "" {
 			http.Error(w, "flightNum not provided", http.StatusBadRequest)
@@ -124,6 +123,13 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 		csvValues, err := csvReader.ReadAll()
 		if err != nil {
 			http.Error(w, "Failed to parse CSV: "+err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		// ⚠️ Clearly DELETE existing rows for this flight_number
+		_, err = db.Exec(`DELETE FROM data WHERE flight_number = ?`, flightNumber)
+		if err != nil {
+			http.Error(w, "Failed to clear old data: "+err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -148,7 +154,7 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 		}
 
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "CSV uploaded successfully for flight %s!", flightNumber)
+		fmt.Fprintf(w, "CSV uploaded and replaced data successfully for flight %s!", flightNumber)
 	}
 }
 
