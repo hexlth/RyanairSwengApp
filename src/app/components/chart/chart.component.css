@@ -1,56 +1,101 @@
+/* Container for full screen with chart */
+:host {
+    width: 100%;
+    height: calc(100% - 150px);         /*same as the list, minus 150px to get rest of screen height with 10px gap on the bottom*/
+    display: flex;
+}  
+
+/* Main container */
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     width: var(--view-elements-width);
-    height: calc(90vh - 150px);
-    gap: 20px;
+    height: auto;
+    flex: 1;
 }
 
+/* Chart container */
 .chart-container {
     display: flex;
-    width: 100%;
-    height: 100%;         /*minus height of options box to make chart take the rest of the height*/
-}
-
-.chart-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center; /* Center chart */
     align-items: center;
+    width: var(--view-elements-width);
+    flex: 0.9;
+    font-size: clamp(12px, 2rem, 24px);
+}
 
-    width: 100%;
-    height: 200px;
-    gap: 20px;
+/* Flex container for controls */
+.options-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(var(--view-elements-width) - 20px);        /*width of chart options is width of view elements but we minus 20px padding as 10px on both sides*/
+    height: 120px;                                         /*give the options a set height, same as the top bar*/
     background-color: blue;
-    border-radius: var(--border-radis);
+    border-radius: var(--border-radius);
+    padding: 10px;
 }
 
-/*styles for the apply button*/
+/* Dropdown Styling */
+.chart-dropdown {
+    width: var(--dynamic-button-width);
+    height: 45px;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 8px;
+    border: 2px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Slider container */
+.chart-slider {
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--dynamic-slider-width);
+    height: 100px;
+}
+
+/* Apply Button */
 #apply-button {
-    width: 200px;                       /*80% of available width*/
-    height: 50px;                     /*set height of 50px*/
-    background-color: yellow;       /*set background colour of button*/
-    border: 2px solid black;        /*button border*/
-    font-size: 20px;                  /*set font size*/
+    width: var(--dynamic-button-width);
+    height: 50px;
+    font-size: var(--dynamic-font-regular);
+    font-weight: bold;
+    background-color: yellow;
+    border: 2px solid black;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
 }
 
-/*styles for the whole bar of slider*/
+
+
+
+/* Styles for the whole bar of the slider */
 ::ng-deep .slider .ngx-slider-bar {
-    width: 100% !important;         /*make bar take up 100% of designated width*/
+    width: 100% !important;
 }
 
-/*style for selected portion of slider (in between the pointers)*/
+/* Style for selected portion of slider (between the pointers) */
 ::ng-deep .slider .ngx-slider-selection {
-    background-color: yellow !important;       /*set selected portion of slider to yellow*/
+    background-color: yellow !important;
 }
 
-/*pointer styling*/
+/* Pointer styling */
 ::ng-deep .slider .ngx-slider-pointer {
-    background-color: gray !important;         /*set the pointer colour*/
+    background-color: gray !important;
 }
 
-/*styling labels of slider (not working for some reason, look online for solutions)*/
+/* Styling labels of slider */
 ::ng-deep .slider .ngx-slider .ngx-slider-bubble {
-    font-size: 40px;
-    width: 10px !important;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
 }

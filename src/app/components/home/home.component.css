@@ -1,51 +1,94 @@
 /* Overall container for layout */
 .container {
     display: flex;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden; /* Prevent any overflow */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    transition: background-image 1s ease-in-out; /* Transition for background image */
+    position: relative; /* Ensure the pseudo-element can position itself relative to this container */
 }
 
-/* Sidebar styling */
-.home {
-    background: linear-gradient(135deg, #1F1FFF, #4949FF);
-    width: 350px; /* Sidebar width */
-    height: 100vh;
-    position: fixed;
-    left: 0;
+/* Apply gradient overlay via the ::before pseudo-element */
+.container::before {
+    content: "";
+    position: absolute;
     top: 0;
-    padding: 20px;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)); /* Gradient with opacity */
+    z-index: 1; /* Ensure it sits above the background image but below content */
+    transition: background-image 1s ease-in-out; /* Transition for gradient change */
 }
 
 /* Sidebar title styling */
 .title {
     color: white;
     text-align: center;
-    font-size: 20px;
+    font-size: clamp(20px, 5vw, 28px);
     font-family: "Libre Franklin", sans-serif;
-    margin-bottom: 20px;
+
+    width: 100%;
+    height: 15%;
+    z-index: 2;
 }
 
 .title img {
-    width: 200px;
+    width: clamp(300px, 35%, 550px);
     height: auto;
-    margin: 0 auto;
-    display: block;
 }
 
-/* Main content area styling */
-.content {
-    flex-grow: 1;
-    margin-left: 350px; /* Matches the sidebar width */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
+/* styling of all features below title*/
+.features {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 2;
+}
+
+/* styling searchbar box*/
+.search-inputs {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 20%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: blue;
+    border-radius: var(--border-radius);
+}
+
+/*box for the dropdowns beside searchbar*/
+.iata-search {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/*styling for both the dropdown*/
+.code-dropdown {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    font-size: clamp(10px, 0.7rem, 18px);
+    width: clamp(60px, 80%, 300px);
+    height: clamp(20px, 10%, 30px);
+    border-radius: var(--border-radius);
+    background: linear-gradient(135deg, #FFD400, #FFDD3C);
 }
 
 /* Form container for flight number input and submit button */
@@ -71,7 +114,6 @@
 .form-container button {
     width: 100%;
     padding: 10px;
-    background-color: #1F1FFF;
     color: #fff;
     border: none;
     border-radius: 5px;

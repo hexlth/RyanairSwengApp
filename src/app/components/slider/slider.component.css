@@ -1,3 +1,9 @@
+/* Container for full screen with slider */
+:host {
+    width: 100%;
+    display: flex;
+} 
+
 /*styling for the whole slider container*/
 .container {
     display: flex;                      /*make container flex*/
@@ -15,7 +21,7 @@
 /*Style the title above the slider*/
 .title {
     text-align: center;           /*align the title in centre*/
-    font-size: 20px;              /*set font size and font colour*/
+    font-size: var(--dynamic-font-regular);              /*set font size and font colour*/
     color: black;
 }
 

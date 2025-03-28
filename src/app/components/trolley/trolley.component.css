@@ -1,87 +1,136 @@
 .container {
     display: flex;
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     flex-shrink: 1;
     flex-grow: 1;
 }
 
-.home {
+/*style for the sidebar*/
+.sidebar {
     background: linear-gradient(135deg, #1F1FFF, #4949FF);
-    min-width: 225px;
-    width: 20vw; /* Adjust the sidebar width as needed */
+    width: clamp(225px, 25%, 400px);                                /*clamping width of sidebar to change based on screen width*/
     left: 0;
     top: 0;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: fixed;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/*sytles for when sidebar is open and visible on screen*/
+.sidebar.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 1000;                  /*make sure that the sidebar is above everything else on screen*/
+}
+
+/* Backdrop, this is the dimmed area beside sidebar when its visible, clicking on it closes sidebar */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-left: clamp(225px, 25%, 400px);                             /*margin to left of backdrop to push backdrop width of sidebar from left of screen,
+                                                                        MUST BE THE SAME AS THE SIDEBAR WIDTH*/
+
+    width: clamp(calc(100% - 225px), 75%, calc(100% - 400px));         /*width of backdrop clamped, this is the remainder of screen left by sidebar*/
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    opacity: 0;
+    visibility: hidden;
+}
+
+/*styling the backdrop for when its on screen*/
+.backdrop.show {
+    transition: opacity 0.5s ease, transform 1.5s ease, visibility 2.0s;
+    opacity: 1;
+    visibility: visible;
 }
 
 .content {
     background-color: white; /* Set background color to white */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 1s ease-in-out;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Align children at the top */
     align-items: center;
-    width: calc(100vw - 20vw); /* Fill remaining width after sidebar */
-    height: 100vh;
-    padding-top: 20px; /* Optional: adds some space from the top edge */
+    width: 100%;
+    height: 100%;
 }
 
 
 .flight-heading {
     /* Use row direction if you want them side by side; column if stacked */
     display: flex;
-    flex-direction: column; /* or row */
-    align-items: flex-start;
+    flex-direction: row; /* or row */
+    align-items: center;
+    justify-content: flex-start;
     /* Remove fixed height so the box expands based on its content */
     width: var(--view-elements-width);
-  
-    /* A more subdued blue or keep your original color */
-    background-color: #2f2ffc;
-    border-radius: 8px; /* or var(--border-radis) if that’s your variable */
-  
-    /* Add padding so the contents aren’t flush against the edges */
-    padding: 20px;
-  
-    /* Gap creates spacing between child elements (h1 and input) */
-    gap: 50px;
-  }
-  
-  .flight-heading h1 {
-    /* Remove hard-coded width/height; let the text size the element */
-    margin: 0;
-    color: #fff; /* White text on a blue background */
-    font-size: 24px;
-    /* Optional: remove background color for a simpler look */
-    background-color: transparent;
-    /* If you want a subtle highlight, try a light overlay:
-       background-color: rgba(255, 255, 255, 0.1); */
-    border-radius: 4px;
-    padding: 8px;
-  }
-  
-  .flight-heading input {
-    /* Make the input match your color scheme nicely */
-    color: #333; /* Dark text for readability */
-    background-color: #fff; /* White background for contrast */
-    font-size: 16px;
-  
-    /* Add some padding and border for a clean look */
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  
-    /* Remove large margin-left; rely on flex gap or spacing */
-    margin: 0;
-  }
-  
+    height: 120px;                                  /*give the search bar a fixed height of 120px at all times*/
+    background-color: blue;
+    border-radius: var(--border-radius);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*button to toggle the sidebar*/
+.toggle-sidebar {
+    margin-left: 20px;
+    border-radius: var(--border-radius);
+    background-color: yellow;
+}
+
+/*box for the flight number and title on dashboard screen*/
+.flight-content {
+    display: flex;                      /*flex display*/
+    flex-direction: column;             /*align in column*/
+    align-items: flex-start;            /*align in centre horizontally*/
+    justify-content: space-evenly;      /*space evenly vertically*/
+
+    width: 100%;
+    height: 100%;
+}
+
+/*styling for the first text element inside the top headng box*/
+.flight-heading h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    background-color: lightskyblue;
+    color: white;
+    width: clamp(150px, 60%, 400px);
+    font-size: var(--dynamic-font-regular);
+
+    margin-left: clamp(10px, 5%, 50px);
+    padding: 2px;
+    border-radius: var(--border-radius);
+    flex: 1;
+
+}
+.flight-heading input {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    color: black;
+    background-color: #daf0ee;
+    width: clamp(150px, 60%, 400px);
+    font-size: var(--dynamic-font-regular);
+
+    margin-left: clamp(10px, 5%, 50px);
+    margin-bottom: 10px;
+    border-radius: var(--border-radius); 
+    flex: 1; 
+}
 
 .title {
     /* Styling for text inside the sidebar */
@@ -90,10 +139,10 @@
     justify-items: flex-start;
     align-items: center;
     width: 100%;
-    height: calc(100vh - 20px);                     /*height of box minus the bottom border of legend box*/
+    height: 100dvh;
     color: white;
     text-align: center;
-    font-size: 20px;
+    font-size: var(--dynamic-font-sidebar-title);
     font-family: "Libre Franklin", sans-serif;
     margin-top: 20px;
 
@@ -102,7 +151,7 @@
 }
 
 .title img {
-    width: 200px; /* Adjust width as needed */
+    width: clamp(200px, 20vw, 360px); /* Adjust width as needed */
     height: auto; /* Keep aspect ratio */
 }
 
@@ -138,7 +187,8 @@
     height: 50px;
 
     color: white;
-    border-radius: var(--border-radis);
+    font-size: var(--dynamic-font-sidebar);
+    border-radius: var(--border-radius);
 }
 .options li:hover {
     color: blue;

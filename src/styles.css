@@ -1,7 +1,8 @@
 /* Ensure html and body take up full height */
 html, body {
     height: 100vh;
-    margin: 0;   
+    margin: 0;
+    padding: 0;   
     background-color: blue;
   }
 
@@ -15,9 +16,18 @@ button:active {
     transform: scale(0.95);
 }
 
+/*defining global elements to be used throughout web app*/
 :root {
-    --border-radis: 20px;
-    --view-elements-width: 75vw;
+    --border-radius: 20px;
+    --view-elements-width: 95%;
+    --view-width: 100vw;
+    --view-height: 100dvh;
+    --dynamic-font-regular: clamp(1rem, 5vw, 1.6rem);
+    --dynamic-font-list: clamp(0.8rem, 4vw, 1.8rem);
+    --dynamic-font-sidebar: clamp(1.4rem, 5vw, 1.8rem);
+    --dynamic-font-sidebar-title: clamp(1.2rem, 2vw, 1.8rem);
+    --dynamic-button-width: clamp(50px, 20%, 250px);
+    --dynamic-slider-width: clamp(100px, 40%, 400px);
 }
     
 

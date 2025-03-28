@@ -1,28 +1,31 @@
 <div class="container">
-    <div class="chart-container">
+  <div class="chart-container">
       <canvas id="chart"></canvas>
-    </div>
-    <div class="chart-options">
-      <select (change)="setChartType($event)">
-        <option value="bar">Bar Chart</option>
-        <option value="line">Line Chart</option>
-        <option value="pie">Pie Chart</option>
-        <option value="doughnut">Doughnut Chart</option>
-      </select>
-      
-      <!-- Wrapped slider in a container for styling -->
-      <div class="chart-slider">
-        <app-slider 
-          title="Select a range" 
-          [minValue]="minSliderValue" 
-          [maxValue]="maxSliderValue" 
-          [cap]="maxValue"
-          (minChange)="updateMinValue($event)" 
-          (maxChange)="updateMaxValue($event)">
-        </app-slider>
-      </div>
-      
-      <button id="apply-button" (click)="updateChart()">Apply</button>
-    </div>
   </div>
   
+    <!-- Grouping all controls inside a flex container -->
+    <div class="options-container">
+        <!-- Dropdown -->
+        <select (change)="setChartType($event)" class="chart-dropdown">
+            <option value="bar">Bar Chart</option>
+            <option value="line">Line Chart</option>
+            <option value="pie">Pie Chart</option>
+            <option value="doughnut">Doughnut Chart</option>
+        </select>
+
+        <!-- Slider -->
+        <div class="chart-slider">
+            <app-slider 
+                title="Select a range" 
+                [minValue]="minSliderValue" 
+                [maxValue]="maxSliderValue" 
+                [cap]="maxValue"
+                (minChange)="updateMinValue($event)" 
+                (maxChange)="updateMaxValue($event)">
+            </app-slider>
+        </div>
+
+        <!-- Apply Button -->
+        <button id="apply-button" (click)="updateChart()">Apply</button>
+    </div>
+</div>

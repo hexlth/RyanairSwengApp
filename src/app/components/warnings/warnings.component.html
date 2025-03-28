@@ -1,10 +1,7 @@
 
 <div class="list">
     <div class="flight-heading">
-        <h1 class="flight box">Flight Inventory</h1>
-        <div class="search-bar">
-            <input [(ngModel)]="searchTerm" placeholder="Search items...">
-        </div>
+        <h1 class="flight box">Warnings for Low Stock Items</h1>
     </div>
 
     <div class="list-headings">
@@ -14,7 +11,7 @@
         <p>EPC</p>
     </div>
     <ul>
-        @for (item of filteredStock; track item) {
+        @for (item of getLowStockItems; track item) {
             <li [ngClass]="getClass(item.quantity)">
                 <p>{{$index + 1}}.</p>
                 <p>{{item.name}}</p>
