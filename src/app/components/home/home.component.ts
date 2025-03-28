@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   // valid boolean to be passed to searchbar
   invalid: boolean = false;
 
-  flightNumbers: string[] = ["0000", "0001", "0002"];
+  flightNumbers: string[] = ["0000", "0001", "0002","0003","0004","0005"];
 
   // Inject the Router
   constructor(private router: Router) {}
