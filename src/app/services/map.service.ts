@@ -68,7 +68,8 @@ export class MapService {
     return [{
       flightNumber: flightNumber,
       from: { iata: fromIATA },
-      to: { iata: toIATA }
+      to: { iata: toIATA },
+      isLow: false
     }];
   }
   

@@ -4,6 +4,7 @@ import { ListComponent } from "../list/list.component";
 import { ChartComponent } from '../chart/chart.component';
 import { ScanComponent } from '../Upload-Scan/scan.component';
 import { FormsModule } from '@angular/forms';
+import { WarningsComponent } from "../warnings/warnings.component";
 
 
 // The structure for each flight in your component
@@ -27,7 +28,7 @@ interface Data {
 
 @Component({
   selector: 'app-trolley',
-  imports: [ListComponent, ChartComponent, ScanComponent, FormsModule],
+  imports: [ListComponent, ChartComponent, ScanComponent, FormsModule, WarningsComponent],
   standalone: true,
   templateUrl: './trolley.component.html',
   styleUrls: ['./trolley.component.css']
@@ -56,6 +57,13 @@ export class TrolleyComponent implements OnInit {
   // array of screen options to choose from and declaration of current option string
   options: string[] = ["Overview", "Products", "Graphs", "Warnings", "Scan"];
   currentOption: string = "";
+
+  // boolean to toggle sidebar
+  isSidebarOpen: boolean = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 
   ngOnInit() {
     this.flightNum = this.route.snapshot.queryParamMap.get("flightNum") || "";

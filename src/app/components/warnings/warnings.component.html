@@ -1,23 +1,13 @@
-
-<div class="list">
-    <div class="flight-heading">
-        <h1 class="flight box">Warnings for Low Stock Items</h1>
-    </div>
-
-    <div class="list-headings">
-        <p>Index</p>
-        <p>Name</p>
-        <p>Quantity</p>
-        <p>EPC</p>
-    </div>
-    <ul>
-        @for (item of getLowStockItems; track item) {
-            <li [ngClass]="getClass(item.quantity)">
-                <p>{{$index + 1}}.</p>
-                <p>{{item.name}}</p>
-                <p>{{item.quantity}}</p>
-                <p>{{item.epc}}</p>
-            </li>
-        }
-    </ul>
+<div class="container">
+    @for (route of routes; track route) {
+        <div class="warning-container">
+            <div class="info">
+                <header>FLIGHT INFO</header>
+                <span>{{"FlightNumber: " + route.flightNumber}}</span>
+                <span>{{"Route from: " + route.from.iata + " to: " + route.to.iata}}</span>
+            </div>
+            <span class="message">LOW STOCK</span>
+            <button class="button">GO</button>
+        </div>
+    }
 </div>

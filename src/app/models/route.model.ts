@@ -6,4 +6,5 @@ export interface Route {
     from: {
       iata: string
     },
+    isLow: boolean
   }

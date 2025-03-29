@@ -21,8 +21,8 @@ export class ChartComponent {
   
     // arrays for the values and labels and String for graph type
     values: number[] = [];
-    labels: String[] = [];
-    chartType: String = "bar";
+    labels: string[] = [];
+    chartType: string = "bar";
   
     // declaring chart object and its config to be used for rendering
     config: any = {};

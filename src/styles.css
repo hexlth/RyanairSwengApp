@@ -26,6 +26,8 @@ button:active {
     --dynamic-font-list: clamp(0.8rem, 4vw, 1.8rem);
     --dynamic-font-sidebar: clamp(1.4rem, 5vw, 1.8rem);
     --dynamic-font-sidebar-title: clamp(1.2rem, 2vw, 1.8rem);
+    --dynamic-font-warning: clamp(0.8rem, 2vw, 1.8rem);
+    --dynamic-font-flightinfo: clamp(0.6rem, 1vw, 1.2rem);
     --dynamic-button-width: clamp(50px, 20%, 250px);
     --dynamic-slider-width: clamp(100px, 40%, 400px);
 }

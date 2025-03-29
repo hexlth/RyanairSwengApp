@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="home">
+    <aside class="sidebar" [class.open]="isSidebarOpen">
         <div class="title">
             <img src="images/logo.svg" width="1200" height="300" alt="LOGO"/>
             <h3 style="text-decoration: underline;">Low Fares Made Simple</h3>
@@ -12,11 +12,19 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </aside>
+
+    <div class="backdrop" [class.show]="isSidebarOpen" (click)="toggleSidebar()"></div>
+    
     <div class="content">
         <div class="flight-heading">
-            <h1 class="flight box">Flight Number:</h1>
-            <input [(ngModel)]="flightNum" placeholder="Enter Flight Number">
+            <button class="toggle-sidebar" (click)="toggleSidebar()">
+                <img width="30px" height="30px" src="images/icons/hamburger-icon.svg" alt="Menu">
+            </button>
+            <div class="flight-content">
+                <h1 class="flight box">Flight Number:</h1>
+                <input [value]="flightNum" readonly>
+            </div>
         </div>
         @if (currentOption === "Products") {
             <app-list [stock]="stock"></app-list>
@@ -24,8 +32,11 @@
         @if (currentOption === "Graphs") {
             <app-chart [stock]="stock"></app-chart>
         }
+        @if (currentOption === "Warnings") {
+            <app-warnings></app-warnings>
+        }
         @if (currentOption == "Scan"){
-            <app-scan [flightNum]="flightNum"></app-scan>
-        }        
+            <app-scan></app-scan>
+        }
     </div>
 </div>
