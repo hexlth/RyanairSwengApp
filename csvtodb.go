@@ -126,11 +126,47 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		// ⚠️ Clearly DELETE existing rows for this flight_number
+		// ⚠️ DELETE existing rows clearly first
 		_, err = db.Exec(`DELETE FROM data WHERE flight_number = ?`, flightNumber)
 		if err != nil {
 			http.Error(w, "Failed to clear old data: "+err.Error(), http.StatusInternalServerError)
 			return
+		}
+
+		type DataRow struct {
+			Index        string
+			Type         string
+			EPC          string
+			ID           string
+			UserData     string
+			ReservedData string
+			TotalCount   int
+			ReadTime     string
+		}
+
+		aggregated := make(map[string]*DataRow)
+
+		for _, row := range csvValues {
+			if len(row) < 8 {
+				log.Println("Skipping incomplete row:", row)
+				continue
+			}
+
+			epc := row[2] // EPC is at index 2
+			if existing, found := aggregated[epc]; found {
+				existing.TotalCount += 1 // clearly increment the count
+			} else {
+				aggregated[epc] = &DataRow{
+					Index:        row[0],
+					Type:         row[1],
+					EPC:          epc,
+					ID:           row[3],
+					UserData:     row[4],
+					ReservedData: row[5],
+					TotalCount:   1, // initial count clearly set as 1
+					ReadTime:     row[7],
+				}
+			}
 		}
 
 		insertSQL := `INSERT INTO data ("Index", "Type", "EPC", "ID", "UserData", "ReservedData", "TotalCount", "ReadTime", "InsertTime", "flight_number") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
@@ -141,20 +177,16 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 		}
 		defer stmt.Close()
 
-		for _, value := range csvValues {
-			if len(value) < 8 {
-				log.Println("Skipping incomplete row:", value)
-				continue
-			}
+		for _, row := range aggregated {
 			timeNow := time.Now().Format("15:04:05 02 January 2006")
-			_, err = stmt.Exec(value[0], value[1], value[2], value[3], value[4], value[5], value[6], value[7], timeNow, flightNumber)
+			_, err = stmt.Exec(row.Index, row.Type, row.EPC, row.ID, row.UserData, row.ReservedData, row.TotalCount, row.ReadTime, timeNow, flightNumber)
 			if err != nil {
-				log.Println("Error inserting row:", err)
+				log.Println("Error inserting aggregated row:", err)
 			}
 		}
 
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "CSV uploaded and replaced data successfully for flight %s!", flightNumber)
+		fmt.Fprintf(w, "CSV uploaded and EPC data aggregated successfully for flight %s!", flightNumber)
 	}
 }
 
