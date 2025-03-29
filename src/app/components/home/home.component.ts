@@ -13,9 +13,9 @@ import { MapComponent } from "../map/map.component";
 })
 export class HomeComponent implements OnInit {
   // creating a flightNum input to be passed to searchBar
-  flightNum: String = "";
-  toIata: String = "";
-  fromIata: String = "";
+  flightNum: string = "";
+  toIata: string = "";
+  fromIata: string = "";
 
   // valid boolean to be passed to searchbar
   invalid: boolean = false;
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   // function to update the search parameters
-  updateFlightNum(input: String) {
+  updateFlightNum(input: string) {
     this.flightNum = input;
     console.log(this.flightNum);
   }

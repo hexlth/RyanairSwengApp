@@ -74,7 +74,7 @@ export class MapService {
   
 
   // filter function which filters which routes to display on the map using 3 search parameters
-  filter(flightNumberSearch: String, destSearch: String, departureSearch: String): [Route[], Airport[]] {
+  filter(flightNumberSearch: string, destSearch: string, departureSearch: string): [Route[], Airport[]] {
     // Filter airports and routes based on all search terms
     let filteredRoutes = this.routes.filter(route =>
       route.flightNumber.toLocaleLowerCase().includes(flightNumberSearch.toLocaleLowerCase()) &&

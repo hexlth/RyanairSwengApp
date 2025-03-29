@@ -22,7 +22,7 @@ export class SearchBarComponent {
   @Input() errorMessage: string = "";
 
   // Output the search input when it changes
-  @Output() inputValueChange = new EventEmitter<String>();
+  @Output() inputValueChange = new EventEmitter<string>();
 
   // method to update input value to new value entered by user
   onInputChange(e: Event) {

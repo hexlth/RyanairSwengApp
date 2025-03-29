@@ -13,7 +13,7 @@ export class ChartDataService {
 
   // create arrays for the labels and values to be updated
   values: number[] = [];
-  labels: String[] = [];
+  labels: string[] = [];
 
 
   // function to set the data
@@ -24,7 +24,7 @@ export class ChartDataService {
   // initialize the chart data
   // Input the Item[] array and return the values and labels arrays as a tuple
   // return format: 1st values, 2nd labels
-  initializeChartData(data: Item[]): [number[], String[]] {
+  initializeChartData(data: Item[]): [number[], string[]] {
     // assign the current flights stock to data
     this.data = data;
 
@@ -37,7 +37,7 @@ export class ChartDataService {
   }
 
   // get data in a range of values
-  getDataRange(minValue: number, maxValue: number): [number[], String[], Item[]] {
+  getDataRange(minValue: number, maxValue: number): [number[], string[], Item[]] {
     // create filteredData array which filters all points in between the slider values
     const filteredData = this.data.filter(item => item.quantity >= minValue && item.quantity <= maxValue);
 

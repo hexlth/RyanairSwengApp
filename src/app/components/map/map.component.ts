@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
   filteredRoutes: Route[] = [];
 
   // Define the input search parameters to map
-  @Input() fligthNumberSearch: String = "";
+  @Input() fligthNumberSearch: string = "";
   @Input() departureSearch: string = "";
   @Input() destSearch: string = "";
   
@@ -55,7 +55,7 @@ export class MapComponent implements OnInit {
   async loadAirportsAndInitialize() {
     try {
       // assign the airports array as the return of the promise
-      this.airports = await this.mapService.filterRyanairAirports(); // ✅ Wait for API call to finish
+      this.airports = await this.mapService.filterRyanairAirports(); // Wait for API call to finish
   
       // we then generate random routes for testing
       this.routes = this.mapService.generateRoute(this.departureSearch, this.destSearch);
@@ -147,8 +147,8 @@ export class MapComponent implements OnInit {
       }
 
       const latlngs: [number, number][] = [
-        [fromAirport.latitude, fromAirport.longitude],  // ✅ Safe usage
-        [toAirport.latitude, toAirport.longitude]       // ✅ Safe usage
+        [fromAirport.latitude, fromAirport.longitude],  // Safe usage
+        [toAirport.latitude, toAirport.longitude]       // Safe usage
       ];
 
       let polyline = L.polyline(latlngs, {
