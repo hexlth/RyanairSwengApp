@@ -53,31 +53,25 @@ export class MapService {
   
   
 
-  generateRandomRoutes(): Route[] {
-
-    for (let i = 0; i < 10; i++) {
-      let random1 = Math.floor(Math.random() * this.airports.length);
-      let random2 = Math.floor(Math.random() * this.airports.length);
-      let random3 = Math.floor(Math.random() * 2000) + 1000;
-
-      // Ensure different airports for "from" and "to"
-      while (random1 === random2) {
-        random2 = Math.floor(Math.random() * this.airports.length);
-      }
-
-      this.routes.push({
-        flightNumber: random3.toString(),
-        to: {
-          iata: this.airports[random1].iata,
-        },
-        from: {
-          iata: this.airports[random2].iata,
-        }
-      });
+  generateRoute(fromIATA: string, toIATA: string): Route[] {
+    const flightNumber = (Math.floor(Math.random() * 2000) + 1000).toString();
+  
+    // Clearly ensure both airports exist
+    const fromAirport = this.airports.find(a => a.iata === fromIATA);
+    const toAirport = this.airports.find(a => a.iata === toIATA);
+  
+    if (!fromAirport || !toAirport || fromIATA === toIATA) {
+      console.warn("Invalid airports selected.");
+      return [];
     }
-
-    return this.routes;
+  
+    return [{
+      flightNumber: flightNumber,
+      from: { iata: fromIATA },
+      to: { iata: toIATA }
+    }];
   }
+  
 
   // filter function which filters which routes to display on the map using 3 search parameters
   filter(flightNumberSearch: String, destSearch: String, departureSearch: String): [Route[], Airport[]] {

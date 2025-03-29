@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import { MapService } from '../../services/map.service';
 import { Airport } from '../../models/airport.model';
 import { Route } from '../../models/route.model';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 // Define a custom icon with explicit image paths
 const customIcon = new L.Icon({
@@ -17,7 +19,7 @@ const customIcon = new L.Icon({
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
@@ -33,8 +35,9 @@ export class MapComponent implements OnInit {
 
   // Define the input search parameters to map
   @Input() fligthNumberSearch: String = "";
-  @Input() destSearch: String = "";
-  @Input() departureSearch: String = "";
+  @Input() departureSearch: string = "";
+  @Input() destSearch: string = "";
+  
 
   markers: L.Marker[] = []; // Store markers for easy removal
   polylines: L.Polyline[] = []; // Store polylines for easy removal
@@ -55,7 +58,7 @@ export class MapComponent implements OnInit {
       this.airports = await this.mapService.filterRyanairAirports(); // ✅ Wait for API call to finish
   
       // we then generate random routes for testing
-      this.routes = this.mapService.generateRandomRoutes(); // ✅ Now safe to generate routes
+      this.routes = this.mapService.generateRoute(this.departureSearch, this.destSearch);
   
       // initialize the map
       this.initMap();
@@ -75,13 +78,19 @@ export class MapComponent implements OnInit {
 
   // called anytime that the search inputs change
   ngOnChanges() {
-    // we filter the current routes and airports
-    [this.filteredRoutes, this.filteredAirports] = this.mapService.filter(this.fligthNumberSearch, this.destSearch, this.departureSearch);
-    // if all the search bars are empty we reset back to all routes
-    if(this.fligthNumberSearch === "" && this.destSearch === "" && this.departureSearch === "") {
-      this.resetMap();
+    if (this.departureSearch && this.destSearch) {
+      this.routes = this.mapService.generateRoute(this.departureSearch, this.destSearch);
+
+      this.filteredAirports = this.airports.filter(airport =>
+        airport.iata === this.departureSearch || airport.iata === this.destSearch
+      );
+
+      this.filteredRoutes = this.routes;
+  
+      this.updateMap();
+    } else {
+      this.clearMap();
     }
-    this.updateMap();
   }
   
   // initialize the map on screen
