@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -126,7 +127,7 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		// ⚠️ DELETE existing rows clearly first
+		// ⚠️ DELETE existing rows first
 		_, err = db.Exec(`DELETE FROM data WHERE flight_number = ?`, flightNumber)
 		if err != nil {
 			http.Error(w, "Failed to clear old data: "+err.Error(), http.StatusInternalServerError)
@@ -152,9 +153,17 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 				continue
 			}
 
-			epc := row[2] // EPC is at index 2
+			epc := row[2]
+
+			// Clearly parse TotalCount from the CSV row itself
+			count, err := strconv.Atoi(row[6])
+			if err != nil {
+				log.Printf("Invalid TotalCount '%s' in row, defaulting to 1: %v", row[6], err)
+				count = 1
+			}
+
 			if existing, found := aggregated[epc]; found {
-				existing.TotalCount += 1 // clearly increment the count
+				existing.TotalCount += count // Clearly sum existing counts
 			} else {
 				aggregated[epc] = &DataRow{
 					Index:        row[0],
@@ -163,7 +172,7 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 					ID:           row[3],
 					UserData:     row[4],
 					ReservedData: row[5],
-					TotalCount:   1, // initial count clearly set as 1
+					TotalCount:   count, // Clearly use CSV provided count
 					ReadTime:     row[7],
 				}
 			}
@@ -186,7 +195,7 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 		}
 
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "CSV uploaded and EPC data aggregated successfully for flight %s!", flightNumber)
+		fmt.Fprintf(w, "CSV uploaded and EPC quantities summed successfully for flight %s!", flightNumber)
 	}
 }
 
