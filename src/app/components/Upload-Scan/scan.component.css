@@ -3,6 +3,8 @@
   width: 100%;
   height: calc(100% - 150px);             /*top search bar has 120px height with 10px top and bottom, (140 so add extra 10 for 10px gap at the bottom)*/
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Main scan container */
@@ -13,6 +15,8 @@
   align-self: center;
   height: 100%;       /*Give the full scan container 100% of available width and height*/
   width: 100%;
+
+  border: 2px solid black;
 }
 
 /*container with scan upload*/
