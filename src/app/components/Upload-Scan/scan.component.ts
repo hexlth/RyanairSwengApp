@@ -1,15 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-scan',
   standalone: true,  
   templateUrl: './scan.component.html',
   styleUrls: ['./scan.component.css'],
-  imports: [],
+  imports: [HttpClientModule, CommonModule],
 })
 export class ScanComponent {
-  @Input() flightNum!: string; // Flight number clearly received from trolley.component
+  @Input() flightNum?: string; // Clearly indicate flightNum may initially be undefined
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
 
@@ -17,7 +18,6 @@ export class ScanComponent {
 
   onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedFile = inputElement.files[0];
       this.selectedFileName = this.selectedFile.name;
@@ -25,7 +25,8 @@ export class ScanComponent {
   }
 
   uploadFile(): void {
-    if (!this.selectedFile || !this.flightNum.trim()) {
+    // Clearly handle possible undefined flightNum
+    if (!this.selectedFile || !this.flightNum || !this.flightNum.trim()) {
       alert("You must select a CSV file and have a valid flight number!");
       return;
     }
@@ -46,9 +47,17 @@ export class ScanComponent {
   }
 
   refreshProducts(): void {
-    this.http.get(`http://localhost:8080/data?flightNum=${this.flightNum.trim()}`).subscribe((products) => {
-      console.log('Updated products:', products);
-      // Update your UI here
-    });
+    if (!this.flightNum) {
+      console.error('Flight number is missing during refresh.');
+      return;
+    }
+
+    this.http.get(`http://localhost:8080/data?flightNum=${this.flightNum.trim()}`)
+      .subscribe((products) => {
+        console.log('Updated products:', products);
+        // Update your UI clearly here
+      }, err => {
+        console.error('Error fetching refreshed products:', err);
+      });
   }
 }
