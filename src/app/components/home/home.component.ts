@@ -40,21 +40,15 @@ export class HomeComponent implements OnInit {
   }
 
   // creating method to be called by search button to check for flight numbers
-  searchForFlightNum(searchQuery : string) {
-    // set parameter to the flightNum, trim to remove extra whitespace
+  searchForFlightNum(searchQuery: string) {
     this.flightNum = searchQuery.trim();
 
-    // if flightNum valid, go to new route
-      if(this.flightNumbers.includes(this.flightNum.toString())) {
-        this.router.navigate(["/trolley"], {queryParams : {flightNum : this.flightNum}});
-      }
-      // else flightNum not found, use timer to make button shine red for 2 secs
-    else {
-      alert("INVALID FLIGHT NUMBER");
-      this.invalid = true;
-      setTimeout(() => {
-        this.invalid = false;
-      }, 2000);
+    if(this.flightNum.match(/^[A-Z]{3}-[A-Z]{3}$/)) { // validate pattern like "AAL-AAR"
+        this.router.navigate(["/trolley"], {queryParams: {flightNum: this.flightNum}});
+    } else {
+        alert("INVALID FLIGHT NUMBER FORMAT (Use format: ABC-DEF)");
+        this.invalid = true;
+        setTimeout(() => this.invalid = false, 2000);
     }
   }
 

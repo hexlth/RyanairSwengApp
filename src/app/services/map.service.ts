@@ -8,83 +8,49 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class MapService {
-  // keep log of all routes and airport data
+  // all routes and airports
   routes: Route[] = [];
   airports: Airport[] = [];
 
-  // constructor to create the httpClient
   constructor(private http: HttpClient) { }
 
-  // asynchronous function which returns airport data via a promise
   async filterRyanairAirports(): Promise<Airport[]> {
+    const url = 'https://www.ryanair.com/api/views/locate/5/airports/en/active';
+    const response = await firstValueFrom(this.http.get<any[]>(url));
   
-    // endpoint where airport data is
-    const ryanairUrl = 'https://www.ryanair.com/api/views/locate/5/airports/en/active';
+    this.airports = response
+      .filter(airport => airport.code && airport.coordinates)
+      .map(airport => ({
+        iata: airport.code,
+        name: airport.name,
+        latitude: airport.coordinates.latitude,
+        longitude: airport.coordinates.longitude
+      }));
   
-    // use a try catch, try to get the data and if error we catch the error and log error
-    try {
-      // await the respone from the url
-      const response = await firstValueFrom(this.http.get<any[]>(ryanairUrl));
-  
-      if (!response) {
-        console.error("API Response is null or undefined.");
-        return [];
-      }
-  
-      // if the response was ok, we filter the airport data to align with Airport structure
-      this.airports = response
-        .filter(airport => airport.code && airport.coordinates?.latitude && airport.coordinates?.longitude) // Ensure valid data
-        .map(airport => ({
-          iata: airport.code,
-          name: airport.name,
-          latitude: airport.coordinates.latitude,
-          longitude: airport.coordinates.longitude
-        }));
-  
-      // return the filtered airport data
-      return this.airports;
-    } catch (error) {
-      console.error("API Error:", error);
-      // Return an empty array to prevent breaking the app
-      return [];
-    }
-  }
-  
-  
-  
+    return this.airports;
+  }  
 
-  generateRoute(fromIATA: string, toIATA: string): Route[] {
-    const flightNumber = (Math.floor(Math.random() * 2000) + 1000).toString();
-  
-    // Clearly ensure both airports exist
-    const fromAirport = this.airports.find(a => a.iata === fromIATA);
-    const toAirport = this.airports.find(a => a.iata === toIATA);
-  
-    if (!fromAirport || !toAirport || fromIATA === toIATA) {
-      console.warn("Invalid airports selected.");
-      return [];
-    }
-  
-    return [{
-      flightNumber: flightNumber,
-      from: { iata: fromIATA },
-      to: { iata: toIATA },
-      isLow: false
+  generateRoute(departureSearch: string, destSearch: string): Route[] {
+    this.routes = [{
+      flightNumber: `${departureSearch}-${destSearch}`,
+      from: { iata: departureSearch },
+      to: { iata: destSearch }
     }];
-  }
   
+    return this.routes;
+  }  
 
-  // filter function which filters which routes to display on the map using 3 search parameters
   filter(flightNumberSearch: string, destSearch: string, departureSearch: string): [Route[], Airport[]] {
-    // Filter airports and routes based on all search terms
     let filteredRoutes = this.routes.filter(route =>
-      route.flightNumber.toLocaleLowerCase().includes(flightNumberSearch.toLocaleLowerCase()) &&
-      route.to.iata.toLocaleLowerCase().includes(destSearch.toLocaleLowerCase()) &&
-      route.from.iata.toLocaleLowerCase().includes(departureSearch.toLocaleLowerCase()));
-
+      (!flightNumberSearch || route.flightNumber.toLowerCase().includes(flightNumberSearch.toLowerCase())) &&
+      (!destSearch || route.to.iata.toLowerCase().includes(destSearch.toLowerCase())) &&
+      (!departureSearch || route.from.iata.toLowerCase().includes(departureSearch.toLowerCase()))
+    );
+  
     let filteredAirports = this.airports.filter(airport =>
-      filteredRoutes.find(route => route.to.iata === airport.iata || route.from.iata === airport.iata));
-    
-    return [filteredRoutes, filteredAirports]
-  }
+      filteredRoutes.some(route => route.to.iata === airport.iata || route.from.iata === airport.iata)
+    );
+  
+    return [filteredRoutes, filteredAirports];
+  }  
 }

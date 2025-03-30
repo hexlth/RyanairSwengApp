@@ -1,6 +1,6 @@
 export interface Airport {
-    iata: string;
-    name: string;
-    latitude: number;
-    longitude: number;
-  }
+  iata: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
