@@ -28,6 +28,6 @@ export class WarningsComponent implements OnInit {
   }
 
   goToFlight(flightNumber: string): void {
-    this.router.navigate(['/trolley'], { queryParams: { flightNum: flightNumber } });
-  }
+    window.location.href = `/trolley?flightNum=${flightNumber}`;
+  }  
 }

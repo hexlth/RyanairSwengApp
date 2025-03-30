@@ -262,7 +262,7 @@ func main() {
 
 	http.HandleFunc("/data", dataHandler(db))
 	http.HandleFunc("/upload", uploadHandler(db))
-	http.HandleFunc("/low-stock", lowStockHandler(db)) // ✅ Add clearly this line here!
+	http.HandleFunc("/low-stock", lowStockHandler(db))
 
 	port := 8080
 	fmt.Printf("Server is running on port %d\n", port)
