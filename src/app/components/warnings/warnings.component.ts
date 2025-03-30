@@ -1,114 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Item } from '../../models/item.model';
-import { Route } from '../../models/route.model';
-
-const mockRoutes: Route[] = [
-  {
-    flightNumber: "AA123",
-    to: { iata: "LAX" },
-    from: { iata: "JFK" },
-    isLow: true
-  },
-  {
-    flightNumber: "DL456",
-    to: { iata: "ORD" },
-    from: { iata: "ATL" },
-    isLow: true
-  },
-  {
-    flightNumber: "UA789",
-    to: { iata: "SFO" },
-    from: { iata: "DEN" },
-    isLow: true
-  },
-  {
-    flightNumber: "BA101",
-    to: { iata: "LHR" },
-    from: { iata: "CDG" },
-    isLow: true
-  },
-  {
-    flightNumber: "EK202",
-    to: { iata: "DXB" },
-    from: { iata: "SIN" },
-    isLow: true
-  },
-  {
-    flightNumber: "AA123",
-    to: { iata: "LAX" },
-    from: { iata: "JFK" },
-    isLow: true
-  },
-  {
-    flightNumber: "DL456",
-    to: { iata: "ORD" },
-    from: { iata: "ATL" },
-    isLow: true
-  },
-  {
-    flightNumber: "UA789",
-    to: { iata: "SFO" },
-    from: { iata: "DEN" },
-    isLow: true
-  },
-  {
-    flightNumber: "BA101",
-    to: { iata: "LHR" },
-    from: { iata: "CDG" },
-    isLow: true
-  },
-  {
-    flightNumber: "EK202",
-    to: { iata: "DXB" },
-    from: { iata: "SIN" },
-    isLow: true
-  },
-  {
-    flightNumber: "AA123",
-    to: { iata: "LAX" },
-    from: { iata: "JFK" },
-    isLow: true
-  },
-  {
-    flightNumber: "DL456",
-    to: { iata: "ORD" },
-    from: { iata: "ATL" },
-    isLow: true
-  },
-  {
-    flightNumber: "UA789",
-    to: { iata: "SFO" },
-    from: { iata: "DEN" },
-    isLow: true
-  },
-  {
-    flightNumber: "BA101",
-    to: { iata: "LHR" },
-    from: { iata: "CDG" },
-    isLow: true
-  },
-  {
-    flightNumber: "EK202",
-    to: { iata: "DXB" },
-    from: { iata: "SIN" },
-    isLow: true
-  }
-];
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-warnings',
   standalone: true,
-  imports: [CommonModule], // Add FormsModule here
+  imports: [CommonModule, HttpClientModule, RouterModule],
   templateUrl: './warnings.component.html',
   styleUrl: './warnings.component.css'
 })
 export class WarningsComponent implements OnInit {
-  // create the array of route info used to display info in each warning popup
-  routes: Route[] = [];
+  flightNumbers: string[] = [];
 
-  // method to reinitialize the routes array each time the component is rendered to the screen
+  constructor(private http: HttpClient, private router: Router) {}
+
   ngOnInit() {
-    this.routes = mockRoutes.filter(route => route.isLow === true);
+    this.fetchLowStockFlights();
+  }
+
+  fetchLowStockFlights() {
+    this.http.get<string[]>('http://localhost:8080/low-stock')
+      .subscribe({
+        next: (flights) => this.flightNumbers = flights,
+        error: (err) => console.error('Failed to fetch low-stock flights:', err)
+      });
+  }
+
+  goToFlight(flightNumber: string): void {
+    this.router.navigate(['/trolley'], { queryParams: { flightNum: flightNumber } });
   }
 }

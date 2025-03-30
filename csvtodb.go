@@ -199,6 +199,55 @@ func uploadHandler(db *sql.DB) http.HandlerFunc {
 	}
 }
 
+// clearly fetch flight numbers having at least one item with stock less than 5
+func getLowStockFlights(db *sql.DB) ([]string, error) {
+	rows, err := db.Query(`
+		SELECT DISTINCT flight_number 
+		FROM data 
+		WHERE TotalCount < 5 AND flight_number IS NOT NULL AND flight_number != ''
+	`)
+	if err != nil {
+		log.Println("SQL query error:", err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	var flights []string
+	for rows.Next() {
+		var flightNumber sql.NullString
+		if err := rows.Scan(&flightNumber); err != nil {
+			log.Println("Row scan error:", err)
+			return nil, err
+		}
+		if flightNumber.Valid {
+			flights = append(flights, flightNumber.String)
+		}
+	}
+
+	if err = rows.Err(); err != nil {
+		log.Println("Rows error after scanning:", err)
+		return nil, err
+	}
+
+	return flights, nil
+}
+
+// HTTP handler to clearly expose low-stock flights
+func lowStockHandler(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Content-Type", "application/json")
+
+		flights, err := getLowStockFlights(db)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		json.NewEncoder(w).Encode(flights)
+	}
+}
+
 func main() {
 	db, err := sql.Open("sqlite3", "database.db")
 	if err != nil {
@@ -212,7 +261,8 @@ func main() {
 	}
 
 	http.HandleFunc("/data", dataHandler(db))
-	http.HandleFunc("/upload", uploadHandler(db)) // Added upload handler here
+	http.HandleFunc("/upload", uploadHandler(db))
+	http.HandleFunc("/low-stock", lowStockHandler(db)) // ✅ Add clearly this line here!
 
 	port := 8080
 	fmt.Printf("Server is running on port %d\n", port)

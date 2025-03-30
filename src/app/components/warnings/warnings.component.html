@@ -1,13 +1,13 @@
 <div class="container">
-    @for (route of routes; track route) {
-        <div class="warning-container">
-            <div class="info">
-                <header>FLIGHT INFO</header>
-                <span>{{"FlightNumber: " + route.flightNumber}}</span>
-                <span>{{"Route from: " + route.from.iata + " to: " + route.to.iata}}</span>
-            </div>
-            <span class="message">LOW STOCK</span>
-            <button class="button">GO</button>
+    @for (flightNumber of flightNumbers; track flightNumber) {
+      <div class="warning-container">
+        <div class="info">
+          <header>FLIGHT INFO</header>
+          <span>{{"Flight Number: " + flightNumber}}</span>
         </div>
+        <span class="message">LOW STOCK</span>
+        <button class="button" (click)="goToFlight(flightNumber)">GO</button>
+      </div>
     }
-</div>
+  </div>
+  
