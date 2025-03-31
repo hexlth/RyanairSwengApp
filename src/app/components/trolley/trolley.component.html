@@ -1,7 +1,9 @@
 <div class="container">
     <aside class="sidebar" [class.open]="isSidebarOpen">
         <div class="title">
-            <img src="images/logo.svg" width="1200" height="300" alt="LOGO"/>
+            <a href="">
+                <img src="images/logo.svg" alt="LOGO"/>
+            </a>
             <h3 style="text-decoration: underline;">Low Fares Made Simple</h3>
 
             <div class="options">
@@ -27,7 +29,7 @@
             </div>
         </div>
         @if (currentOption === "Products") {
-            <app-list [stock]="stock"></app-list>
+            <app-list [stock]="stock" [action]="loadFetchedData.bind(this)"></app-list>
         }
         @if (currentOption === "Graphs") {
             <app-chart [stock]="stock"></app-chart>

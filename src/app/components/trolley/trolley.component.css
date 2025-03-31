@@ -14,7 +14,7 @@
     top: 0;
 
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     position: fixed;
 
@@ -153,6 +153,11 @@
 .title img {
     width: clamp(200px, 20vw, 360px); /* Adjust width as needed */
     height: auto; /* Keep aspect ratio */
+}
+
+.title img:hover {
+    transform: scale(1.05);
+    opacity: 0.7;
 }
 
 /*putting options in flexbox with adjustable height and width*/

@@ -115,11 +115,17 @@
 }
 
 .search-bar input {
-    width: 50%; /* Adjust width as needed */
+    width: clamp(150px, 50%, 400px); /* Adjust width as needed */
     height: 35px; /* Match styling */
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: var(--border-radius);
     padding: 5px;
+}
+
+.refresh-button {
+    background-color: yellow;
+    border-radius: var(--border-radius);
+    margin-left: 40px;
 }
 

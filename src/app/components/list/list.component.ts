@@ -2,6 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { Item } from '../../models/item.model';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'app-list',
@@ -13,6 +14,14 @@ import { Item } from '../../models/item.model';
 export class ListComponent implements OnChanges {
   @Input() stock: Item[] = [];
   searchTerm: string = ""; // Holds the search input value
+
+  // Inputting the refresh method
+  @Input() action!: () => void;
+
+  // Call the refresh method
+  refresh() {
+    this.action();
+  }
 
   get filteredStock(): Item[] {
     if (!this.searchTerm) {
