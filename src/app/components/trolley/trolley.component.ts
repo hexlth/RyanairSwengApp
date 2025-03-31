@@ -55,8 +55,8 @@ export class TrolleyComponent implements OnInit {
   stock: { name: string; quantity: number; epc: string }[] = [];
 
   // array of screen options to choose from and declaration of current option string
-  options: string[] = ["Overview", "Products", "Graphs", "Warnings", "Scan"];
-  currentOption: string = "";
+  options: string[] = ["Products", "Graphs", "Warnings", "Scan"];
+  currentOption: string = "Products";
 
   // boolean to toggle sidebar
   isSidebarOpen: boolean = false;
