@@ -66,11 +66,11 @@ export class TrolleyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flightNum = this.route.snapshot.queryParamMap.get("flightNum") || "";
-  
-    // Then call loadFetchedData and update stock
-    this.loadFetchedData();
-    this.stock = this.searchForData();
+    this.route.queryParamMap.subscribe(params => {
+      this.flightNum = params.get('flightNum') || '';
+      this.loadFetchedData();
+      this.stock = this.searchForData();
+    });
   }  
 
   loadFetchedData(): void {
