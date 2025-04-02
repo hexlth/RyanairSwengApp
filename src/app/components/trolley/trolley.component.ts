@@ -74,7 +74,9 @@ export class TrolleyComponent implements OnInit {
   }  
 
   loadFetchedData(): void {
-    fetch(`http://localhost:8080/data?flightNum=${this.flightNum}`)
+    const backendURL = 'https://ryanairbackend.onrender.com';
+
+    fetch(`${backendURL}/data?flightNum=${this.flightNum}`)    
       .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();

@@ -232,6 +232,24 @@ func getLowStockFlights(db *sql.DB) ([]string, error) {
 	return flights, nil
 }
 
+func withCORS(handler http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Set CORS headers
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+		// Handle preflight request
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		// Call the actual handler
+		handler(w, r)
+	}
+}
+
 // HTTP handler to clearly expose low-stock flights
 func lowStockHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -260,9 +278,9 @@ func main() {
 		log.Fatal("CSV Import Error:", err)
 	}
 
-	http.HandleFunc("/data", dataHandler(db))
-	http.HandleFunc("/upload", uploadHandler(db))
-	http.HandleFunc("/low-stock", lowStockHandler(db))
+	http.HandleFunc("/data", withCORS(dataHandler(db)))
+	http.HandleFunc("/upload", withCORS(uploadHandler(db)))
+	http.HandleFunc("/low-stock", withCORS(lowStockHandler(db)))
 
 	port := 8080
 	fmt.Printf("Server is running on port %d\n", port)
