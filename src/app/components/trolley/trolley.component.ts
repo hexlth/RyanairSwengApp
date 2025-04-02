@@ -55,8 +55,8 @@ export class TrolleyComponent implements OnInit {
   stock: { name: string; quantity: number; epc: string }[] = [];
 
   // array of screen options to choose from and declaration of current option string
-  options: string[] = ["Overview", "Products", "Graphs", "Warnings", "Scan"];
-  currentOption: string = "";
+  options: string[] = ["Products", "Graphs", "Warnings", "Scan"];
+  currentOption: string = "Products";
 
   // boolean to toggle sidebar
   isSidebarOpen: boolean = false;
@@ -66,15 +66,17 @@ export class TrolleyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flightNum = this.route.snapshot.queryParamMap.get("flightNum") || "";
-  
-    // Then call loadFetchedData and update stock
-    this.loadFetchedData();
-    this.stock = this.searchForData();
+    this.route.queryParamMap.subscribe(params => {
+      this.flightNum = params.get('flightNum') || '';
+      this.loadFetchedData();
+      this.stock = this.searchForData();
+    });
   }  
 
   loadFetchedData(): void {
-    fetch(`http://localhost:8080/data?flightNum=${this.flightNum}`)
+    const backendURL = 'https://ryanairbackend.onrender.com';
+
+    fetch(`${backendURL}/data?flightNum=${this.flightNum}`)    
       .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();

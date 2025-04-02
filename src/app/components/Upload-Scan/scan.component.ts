@@ -34,8 +34,9 @@ export class ScanComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
     formData.append('flightNum', this.flightNum.trim());
+    const backendURL = 'https://ryanairbackend.onrender.com'; 
 
-    this.http.post('http://localhost:8080/upload', formData, { responseType: 'text' })
+    this.http.post(`${backendURL}/upload`, formData, { responseType: 'text' })
       .subscribe({
         next: (response) => {
           alert(`Upload successful for flight ${this.flightNum}!`);
@@ -43,21 +44,23 @@ export class ScanComponent {
           this.selectedFileName = null; // Reset after successful upload
         },
         error: (err) => console.error('Upload failed:', err)
-      });
+      });    
   }
 
   refreshProducts(): void {
+    const backendURL = 'https://ryanairbackend.onrender.com'; 
     if (!this.flightNum) {
       console.error('Flight number is missing during refresh.');
       return;
     }
 
-    this.http.get(`http://localhost:8080/data?flightNum=${this.flightNum.trim()}`)
-      .subscribe((products) => {
-        console.log('Updated products:', products);
-        // Update your UI clearly here
-      }, err => {
-        console.error('Error fetching refreshed products:', err);
-      });
+    this.http.get(`${backendURL}/data?flightNum=${this.flightNum.trim()}`)
+    .subscribe((products) => {
+      console.log('Updated products:', products);
+      // Update your UI clearly here
+    }, err => {
+      console.error('Error fetching refreshed products:', err);
+    });
+  
   }
 }

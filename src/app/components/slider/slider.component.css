@@ -16,6 +16,7 @@
 
     background-color: lightskyblue;             /*set background colour*/
     border-bottom: 5px solid lightskyblue;      /*slight border on the bottom to prevent slider pointers overflowing box*/
+    border-radius: var(--border-radius);
 }
 
 /*Style the title above the slider*/

@@ -20,14 +20,18 @@ export class WarningsComponent implements OnInit {
   }
 
   fetchLowStockFlights() {
-    this.http.get<string[]>('http://localhost:8080/low-stock')
+    const backendURL = 'https://ryanairbackend.onrender.com';
+  
+    this.http.get<string[]>(`${backendURL}/low-stock`)
       .subscribe({
         next: (flights) => this.flightNumbers = flights,
         error: (err) => console.error('Failed to fetch low-stock flights:', err)
       });
-  }
+  }  
 
   goToFlight(flightNumber: string): void {
-    window.location.href = `/trolley?flightNum=${flightNumber}`;
+    this.router.navigate(['/trolley'], {
+      queryParams: { flightNum: flightNumber }
+    });
   }  
 }

@@ -53,7 +53,6 @@
 /* Slider container */
 .chart-slider {
     padding: 10px;
-    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
