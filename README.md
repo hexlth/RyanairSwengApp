@@ -1,4 +1,4 @@
-# CSU33013-SwEng-Group-29
+# CSU22013-SwEng-Group-29
 The git repository for our Software Engineering Project for an RFID-Based Inflight Inventory Control System with Ryanair. <br/>
 <br/>
 Team Members: <br/>
@@ -9,4 +9,3 @@ Demonstrator: Manuel Francisco Da Silva Araujo
 <br/>
 Ryanair Mentors: David O'Callaghan, Joaquim Oliveira<br/>
 <br/>
-Google Drive Link: https://drive.google.com/drive/folders/18SS-Ug90ZqSVMaKgINdIZvd6otaLxlPO?usp=share_link
